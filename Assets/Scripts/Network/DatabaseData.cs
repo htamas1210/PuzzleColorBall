@@ -4,13 +4,22 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Networking;
 
+
 public class DatabaseData : MonoBehaviour
 {
     public TMP_InputField input;
     private WriteFile wf;
+    private PlayerList pl;
+    protected string jsondata;
 
     private void Start() {
         wf = FindObjectOfType<WriteFile>();
+        pl = new PlayerList();
+    }
+
+    public void jsonParser(string jsondata) {
+        pl = JsonUtility.FromJson<PlayerList>(jsondata);
+        pl.kiir();
     }
 
     public void GetPlayerData() => StartCoroutine(IGetPlayerData());
@@ -29,7 +38,10 @@ public class DatabaseData : MonoBehaviour
             if(request.isNetworkError || request.isHttpError) { //lecserelni majd
                 input.text = request.error;
             } else {
-                input.text = request.downloadHandler.text;
+                jsondata = request.downloadHandler.text;
+                jsonParser(jsondata);
+                Debug.Log(jsondata);
+                input.text = jsondata;
             }
         }
     }
@@ -39,13 +51,9 @@ public class DatabaseData : MonoBehaviour
 
         string uri = "http://localhost:3000/newplayer";
 
-        /*List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-        formData.Add(new MultipartFormDataSection("field1=player_name"));
-        formData.Add(new MultipartFormFileSection("bevitel1", "thewarrior1210"));*/
-
         wf.writeUserName("newtesztUsername");
 
-        WWWForm form = new WWWForm();
+        //WWWForm form = new WWWForm();
         //form.AddField("bevitel1","");
 
         using(UnityWebRequest request = UnityWebRequest.Post(uri, "")) {
@@ -65,16 +73,12 @@ public class DatabaseData : MonoBehaviour
 
         string uri = "http://localhost:3000/newscore";
 
-        /*List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-        formData.Add(new MultipartFormDataSection("field1=player_name"));
-        formData.Add(new MultipartFormFileSection("bevitel1", "thewarrior1210"));*/
-
         wf.WritePlayerid(2);
         wf.WritePalyaid(1);
         wf.WriteScore(10);
         wf.WriteTime("00:01:24");
 
-        WWWForm form = new WWWForm();
+        //WWWForm form = new WWWForm();
         //form.AddField("bevitel1", "");
 
         using (UnityWebRequest request = UnityWebRequest.Post(uri, "")) {
@@ -99,7 +103,7 @@ public class DatabaseData : MonoBehaviour
 
         wf.WritePalyaNev("Easy2");
 
-        WWWForm form = new WWWForm();
+        //WWWForm form = new WWWForm();
         //form.AddField("bevitel1", "");
 
         using (UnityWebRequest request = UnityWebRequest.Post(uri, "")) {
