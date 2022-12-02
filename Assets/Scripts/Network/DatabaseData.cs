@@ -9,17 +9,17 @@ public class DatabaseData : MonoBehaviour
 {
     public TMP_InputField input;
     private WriteFile wf;
-    private PlayerList pl;
-    protected string jsondata;
+    public PlayerList players;
+    public string jsondata;
 
     private void Start() {
         wf = FindObjectOfType<WriteFile>();
-        pl = new PlayerList();
+        players = new PlayerList();
     }
 
     public void jsonParser(string jsondata) {
-        pl = JsonUtility.FromJson<PlayerList>(jsondata);
-        pl.kiir();
+        players = JsonUtility.FromJson<PlayerList>("{\"player\":" + jsondata + "}");
+        players.kiir();
     }
 
     public void GetPlayerData() => StartCoroutine(IGetPlayerData());
@@ -39,8 +39,8 @@ public class DatabaseData : MonoBehaviour
                 input.text = request.error;
             } else {
                 jsondata = request.downloadHandler.text;
-                jsonParser(jsondata);
                 Debug.Log(jsondata);
+                jsonParser(jsondata);
                 input.text = jsondata;
             }
         }

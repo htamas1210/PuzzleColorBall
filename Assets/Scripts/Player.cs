@@ -4,9 +4,9 @@ using UnityEngine;
 
 [System.Serializable]
 public class Player { 
-    public int playerid;
-    public string username;
-    public Date joindate;  
+    public int player_id;
+    public string player_name;
+    public string player_join_date;  
 }
 
 
