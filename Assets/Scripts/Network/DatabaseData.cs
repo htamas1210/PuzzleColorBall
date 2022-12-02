@@ -18,8 +18,7 @@ public class DatabaseData : MonoBehaviour
     }
 
     public void jsonParser(string jsondata) {
-        players = JsonUtility.FromJson<PlayerList>("{\"player\":" + jsondata + "}");
-        players.kiir();
+        players = JsonUtility.FromJson<PlayerList>("{\"player\":" + jsondata + "}");       
     }
 
     public void GetPlayerData() => StartCoroutine(IGetPlayerData());
@@ -39,9 +38,13 @@ public class DatabaseData : MonoBehaviour
                 input.text = request.error;
             } else {
                 jsondata = request.downloadHandler.text;
-                Debug.Log(jsondata);
                 jsonParser(jsondata);
-                input.text = jsondata;
+
+                input.text = "";
+                foreach(var p in players.player) {
+                    p.ConvertDate();
+                    input.text += "p_id: " + p.player_id + " username: " + p.player_name + " join date: " + p.joindate.printDate() + "\n";
+                }
             }
         }
     }

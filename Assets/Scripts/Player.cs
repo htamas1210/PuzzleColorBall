@@ -6,7 +6,12 @@ using UnityEngine;
 public class Player { 
     public int player_id;
     public string player_name;
-    public string player_join_date;  
+    public Date joindate;
+    public string player_join_date;
+
+    public void ConvertDate() { //mindig meg kell hivni
+        joindate = new Date(player_join_date);
+    }
 }
 
 
