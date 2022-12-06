@@ -209,7 +209,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 763363915}
         m_TargetAssemblyTypeName: DatabaseData, Assembly-CSharp
-        m_MethodName: PostNewPlayerData
+        m_MethodName: PostNewPlayerDataTest
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1047,6 +1047,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 1179658675}
+  players:
+    player: []
+  jsondata: 
 --- !u!114 &763363916
 MonoBehaviour:
   m_ObjectHideFlags: 0

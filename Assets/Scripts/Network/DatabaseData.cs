@@ -23,6 +23,7 @@ public class DatabaseData : MonoBehaviour
 
     public void GetPlayerData() => StartCoroutine(IGetPlayerData());
     public void PostNewPlayerData() => StartCoroutine(IPostNewPlayerData());
+    public void PostNewPlayerDataTest() => StartCoroutine(IPostNewPlayerDataTest());
     public void PostNewScoreData() => StartCoroutine(IPostNewScoreData());
     public void PostNewPalyaData() => StartCoroutine(IPostNewPalyaData());
 
@@ -48,6 +49,30 @@ public class DatabaseData : MonoBehaviour
             }
         }
     }
+
+
+    //Player test post
+    private IEnumerator IPostNewPlayerDataTest() {
+        input.text = "loading...";
+
+        string uri = "http://localhost:3000/newplayertest";
+
+        var uwr = new UnityWebRequest(uri, "POST");
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{ \"bevitel1\":\"postusername\"}");
+        uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
+        uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        uwr.SetRequestHeader("Content-Type", "application/json");
+
+        yield return uwr.SendWebRequest();
+
+        if (uwr.isNetworkError) {
+            Debug.Log(uwr.error);
+        } else {
+            Debug.Log(uwr.downloadHandler.text);
+        }
+    }
+    /////////////////////////////////////////////
+
 
     private IEnumerator IPostNewPlayerData() {
         input.text = "loading...";
