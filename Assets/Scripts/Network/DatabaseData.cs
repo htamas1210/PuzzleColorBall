@@ -129,7 +129,7 @@ public class DatabaseData : MonoBehaviour
         string uri = "http://localhost:3000/newscore";
 
         var uwr = new UnityWebRequest(uri, "POST");
-        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":1,\"bevitel2\":1,\"bevitel3\":300,\"bevitel4\":\"00:05:06\"}");
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":2,\"bevitel2\":1,\"bevitel3\":400,\"bevitel4\":\"00:05:06\"}");
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         uwr.SetRequestHeader("Content-Type", "application/json");
