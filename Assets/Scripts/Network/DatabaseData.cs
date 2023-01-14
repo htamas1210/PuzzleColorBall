@@ -8,26 +8,34 @@ using UnityEngine.Networking;
 public class DatabaseData : MonoBehaviour
 {
     public TMP_InputField input;
-    private WriteFile wf;
     public PlayerList players;
+    public HighScoreTableDataContainer htdc;
+    public HighScoreTable hst;
     public string jsondata;
 
-    private void Start() {
-        wf = FindObjectOfType<WriteFile>();
+    private void Awake() {
+        hst = FindObjectOfType<HighScoreTable>();
+        htdc = new HighScoreTableDataContainer();
         players = new PlayerList();
+    }
+
+    public HighScoreTableDataContainer htdcReturn(){
+        return htdc;
     }
 
     public void jsonParser(string jsondata) {
         players = JsonUtility.FromJson<PlayerList>("{\"player\":" + jsondata + "}");       
     }
 
+    public void jsonParserHighScore(string jsondata) {
+        htdc = JsonUtility.FromJson<HighScoreTableDataContainer>("{\"htd\":" + jsondata + "}");       
+    }
+
     public void GetPlayerData() => StartCoroutine(IGetPlayerData());
+    public void GetHighScoreData(int palya_id) => StartCoroutine(IGetHighScoreData(palya_id));
     public void PostNewPlayerData() => StartCoroutine(IPostNewPlayerData());
-    //public void PostNewPlayerDataTest() => StartCoroutine(IPostNewPlayerDataTest());
     public void PostNewScoreData() => StartCoroutine(IPostNewScoreData());
-    //public void PostNewScoreDataTest() => StartCoroutine(IPostNewScoreDataTest());
     public void PostNewPalyaData() => StartCoroutine(IPostNewPalyaData());
-    //public void PostNewPalyaDataTest() => StartCoroutine(IPostNewPalyaDataTest());
 
     private IEnumerator IGetPlayerData() {
         input.text = "Loading...";
@@ -37,11 +45,15 @@ public class DatabaseData : MonoBehaviour
         using (UnityWebRequest request = UnityWebRequest.Get(uri)) {
             yield return request.SendWebRequest();
 
-            if(request.isNetworkError || request.isHttpError) { //lecserelni majd
+            if(request.isNetworkError || request.isHttpError) { 
                 input.text = request.error;
             } else {
                 jsondata = request.downloadHandler.text;
                 jsonParser(jsondata);
+                foreach(var p in players.player) {
+                    p.ConvertDate();
+                    Debug.Log("p_id: " + p.player_id + " username: " + p.player_name + " join date: " + p.joindate.printDate() + "\n");
+                }
 
                 input.text = "";
                 foreach(var p in players.player) {
@@ -52,7 +64,31 @@ public class DatabaseData : MonoBehaviour
         }
     }
 
-    //Player test post
+    private void Start() {
+        GetHighScoreData(2);
+    }
+
+    private IEnumerator IGetHighScoreData(int palya_id){
+        string uri = "http://localhost:3000/toplist";
+
+        var uwr = new UnityWebRequest(uri, "POST");
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+palya_id+"}");
+        uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
+        uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        uwr.SetRequestHeader("Content-Type", "application/json");
+
+        yield return uwr.SendWebRequest();
+
+        if (uwr.isNetworkError) {
+            Debug.Log(uwr.error);
+        } else {
+            input.text = uwr.downloadHandler.text;
+            Debug.Log(uwr.downloadHandler.text);
+            jsonParserHighScore(uwr.downloadHandler.text);
+            hst.CreateTable(htdc.htd);
+        }
+    }
+
     private IEnumerator IPostNewPlayerData() {
         input.text = "loading...";
 
@@ -70,59 +106,10 @@ public class DatabaseData : MonoBehaviour
             Debug.Log(uwr.error);
         } else {
             input.text = uwr.downloadHandler.text;
-            Debug.Log(uwr.downloadHandler.text);
+            Debug.Log(uwr.downloadHandler.text);           
         }
     }
-    /////////////////////////////////////////////
 
-
-    /*private IEnumerator IPostNewPlayerData() {
-        input.text = "loading...";
-
-        string uri = "http://localhost:3000/newplayer";
-
-        wf.writeUserName("newtesztUsername");
-
-        //WWWForm form = new WWWForm();
-        //form.AddField("bevitel1","");
-
-        using(UnityWebRequest request = UnityWebRequest.Post(uri, "")) {
-            yield return request.SendWebRequest();
-
-            if (request.isNetworkError || request.isHttpError) { //lecserelni majd
-                input.text = request.error;
-            } else {
-                input.text = request.downloadHandler.text;
-            }
-        }
-    }*/
-
-
-    /*private IEnumerator IPostNewScoreData() {
-        input.text = "loading...";
-
-        string uri = "http://localhost:3000/newscore";
-
-        wf.WritePlayerid(2);
-        wf.WritePalyaid(1);
-        wf.WriteScore(10);
-        wf.WriteTime("00:01:24");
-
-        //WWWForm form = new WWWForm();
-        //form.AddField("bevitel1", "");
-
-        using (UnityWebRequest request = UnityWebRequest.Post(uri, "")) {
-            yield return request.SendWebRequest();
-
-            if (request.isNetworkError || request.isHttpError) { //lecserelni majd
-                input.text = request.error;
-            } else {
-                input.text = request.downloadHandler.text;
-            }
-        }
-    }*/
-
-    //Score test post
     private IEnumerator IPostNewScoreData() {
         input.text = "loading...";
 
@@ -143,35 +130,7 @@ public class DatabaseData : MonoBehaviour
             Debug.Log(uwr.downloadHandler.text);
         }
     }
-    /////////////////////////////////////////////
 
-
-    /*private IEnumerator IPostNewPalyaData() {
-        input.text = "loading...";
-
-        string uri = "http://localhost:3000/newpalya";
-
-        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-        formData.Add(new MultipartFormDataSection("field1=player_name"));
-        formData.Add(new MultipartFormFileSection("bevitel1", "thewarrior1210"));
-
-        wf.WritePalyaNev("Easy2");
-
-        //WWWForm form = new WWWForm();
-        //form.AddField("bevitel1", "");
-
-        using (UnityWebRequest request = UnityWebRequest.Post(uri, "")) {
-            yield return request.SendWebRequest();
-
-            if (request.isNetworkError || request.isHttpError) { //lecserelni majd
-                input.text = request.error;
-            } else {
-                input.text = request.downloadHandler.text;
-            }
-        }
-    }*/
-
-    //Player test post
     private IEnumerator IPostNewPalyaData() {
         input.text = "loading...";
 
@@ -192,6 +151,4 @@ public class DatabaseData : MonoBehaviour
             Debug.Log(uwr.downloadHandler.text);
         }
     }
-    /////////////////////////////////////////////
-
 }
