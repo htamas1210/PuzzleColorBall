@@ -22,7 +22,8 @@ public class PlayerController : MonoBehaviour
         isJumping = Input.GetAxis("Jump");
 
         if (isJumping > 0 && isOnGround) {
-            rb.AddForce(new Vector3(horizontal, jumpforce, vertical));
+            //rb.AddForce(new Vector3(horizontal, jumpforce, vertical));
+            rb.AddForce(new Vector3(vertical, jumpforce, horizontal));
             isOnGround = false;
         }
 
