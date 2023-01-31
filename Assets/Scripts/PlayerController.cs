@@ -21,15 +21,19 @@ public class PlayerController : MonoBehaviour
         vertical = Input.GetAxis("Vertical");
         isJumping = Input.GetAxis("Jump");
 
+        //jumping
         if (isJumping > 0 && isOnGround) {
-            //rb.AddForce(new Vector3(horizontal, jumpforce, vertical));
-            rb.AddForce(new Vector3(vertical, jumpforce, horizontal));
+            rb.AddForce(new Vector3(horizontal, jumpforce, vertical));
             isOnGround = false;
         }
 
         direction = new Vector3(horizontal, 0,vertical);
 
         rb.AddForce(direction * moveSpeed * Time.deltaTime);
+
+
+
+        //new character controller with swipe lane changing
     }
 
     private void OnCollisionEnter(Collision collision) {
