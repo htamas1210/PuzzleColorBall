@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     void Update(){
         //jumping
         /*if (isJumping > 0 && isOnGround) {
-            rb.AddForce(new Vector3(horizontal, jumpforce, vertical));
+            rb.AddForce(new Vector3(0, jumpforce, 0));
             isOnGround = false;
         }*/
 
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended){
             endTouchPosition = Input.GetTouch(0).position;
 
-            if(endTouchPosition.x < startTouchPosition.x){
+            if(endTouchPosition.x + 20< startTouchPosition.x){
                 //left
                 goLeft();
 
