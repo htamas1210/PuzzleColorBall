@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5615895, g: 0.72180885, b: 0.81785697, a: 1}
+  m_IndirectSpecularColor: {r: 0.56158954, g: 0.7218083, b: 0.8178571, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &481417097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 481417098}
+  m_Layer: 0
+  m_Name: GroundCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &481417098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481417097}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7917514869596290071}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &960528039
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7411,6 +7442,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: module1
       objectReference: {fileID: 0}
+    - target: {fileID: 3881739575044523192, guid: d73ae45b499e5f74ba3e0d287b87893c, type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
     - target: {fileID: 4168203924951896375, guid: d73ae45b499e5f74ba3e0d287b87893c, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -7454,6 +7489,14 @@ PrefabInstance:
     - target: {fileID: 4168203924951896375, guid: d73ae45b499e5f74ba3e0d287b87893c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176207908013364664, guid: d73ae45b499e5f74ba3e0d287b87893c, type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 6313642264481077795, guid: d73ae45b499e5f74ba3e0d287b87893c, type: 3}
+      propertyPath: m_TagString
+      value: Floor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d73ae45b499e5f74ba3e0d287b87893c, type: 3}
@@ -9679,6 +9722,7 @@ Transform:
   - {fileID: 6453956513749133170}
   - {fileID: 1969533545288908800}
   - {fileID: 4837085586104442566}
+  - {fileID: 481417098}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9691,7 +9735,7 @@ BoxCollider:
   m_GameObject: {fileID: 7398140401948337837}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3.46828, y: 6.272723, z: 1.3076319}
   m_Center: {x: -0.011764348, y: 3.0974507, z: -0.01770711}
