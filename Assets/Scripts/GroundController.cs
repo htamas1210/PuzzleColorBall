@@ -6,12 +6,17 @@ public class GroundController : MonoBehaviour
 {
     private GameObject[] ground;
     public GameObject[] loadFrom;
+    public GameObject[] sideObjects;
     private float groundMoveSpeed = 10f;
 
 
     private void Awake() {
-        LoadPrefabs("Prefabs/Modulok");
-        Debug.Log(loadFrom.Length);
+        //Loading modules
+        loadFrom = LoadPrefabs("Prefabs/Modulok");
+        sideObjects = LoadPrefabs("Models/World Objects/World 1");
+        Debug.Log("loadFrom length: " + loadFrom.Length);
+        Debug.Log("sideObjects Length: " + sideObjects.Length);
+
         //getting all of the ground objects by the tag
         ground = GameObject.FindGameObjectsWithTag("Ground");
         if(ground.Length == 0){
@@ -42,8 +47,10 @@ public class GroundController : MonoBehaviour
         }
     }
 
-    private void LoadPrefabs(string path){ //toltese be a palya objecteket a resources mappabol pl: "Prefabs/Modulok" 
-        loadFrom = Resources.LoadAll<GameObject>(path);
+    private GameObject[] LoadPrefabs(string path){ //toltese be a palya objecteket a resources mappabol pl: "Prefabs/Modulok" 
+        GameObject[] arr = Resources.LoadAll<GameObject>(path);
+
+        return arr;
     }
 
     private bool CheckGroundToDestroy(GameObject toCheck){
@@ -68,6 +75,8 @@ public class GroundController : MonoBehaviour
             }
         }
     }
+
+    
 
     private void CreateNewGround(){
         int random = UnityEngine.Random.Range(0, loadFrom.Length);
