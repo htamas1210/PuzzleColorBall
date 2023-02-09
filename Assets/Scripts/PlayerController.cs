@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     public float jumpforce = 5f;
     public float sideMovement = 3f;
     private Vector3 direction;
-    private float horizontal, vertical, isJumping;
+    private float horizontal, vertical;
+    public bool isJumping;
     private bool isOnGround;
 
     //swipe movement
@@ -23,10 +24,16 @@ public class PlayerController : MonoBehaviour
 
     void Update(){
         //jumping
-        /*if (isJumping > 0 && isOnGround) {
-            rb.AddForce(new Vector3(0, jumpforce, 0));
-            isOnGround = false;
-        }*/
+        if (Input.touchCount > 0) {
+            var startPosition = Input.GetTouch(0).position;
+            if(Input.GetTouch(0).phase == TouchPhase.Ended && !isJumping && Input.GetTouch(0).position == startPosition){ 
+                rb.AddForce(new Vector3(0, jumpforce, 0));
+                isJumping = true;
+            }else if(Input.GetTouch(0).phase == TouchPhase.Ended ){
+                isJumping = false;
+            }
+            //isOnGround = false;
+        }
 
         //new character controller with swipe lane changing
         if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began){
@@ -35,7 +42,7 @@ public class PlayerController : MonoBehaviour
         if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended){
             endTouchPosition = Input.GetTouch(0).position;
 
-            if(endTouchPosition.x + 20< startTouchPosition.x){
+            if(endTouchPosition.x + 200< startTouchPosition.x){
                 //left
                 goLeft();
 
@@ -46,11 +53,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision) {
+    /*private void OnCollisionEnter(Collision collision) {
         if (collision.collider.CompareTag("Ground")) {
             isOnGround = true;
         }
-    }
+    }*/
 
     private void goLeft(){
         if(rb.transform.position.x == 3) return; //ne tudjon kimenni a savbol

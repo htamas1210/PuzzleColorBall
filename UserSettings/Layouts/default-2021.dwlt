@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 87
+  controlID: 26
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 88
+  controlID: 27
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 89
+  controlID: 28
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -343,22 +343,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Models/World Objects/World 1
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Resources/Models/World Objects/World 1
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: /home/tom/Documents/dev/zarodolgozat/ColorRunner
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 11}
-    m_SelectedIDs: 20650000
-    m_LastClickedID: 25888
-    m_ExpandedIDs: 000000006a600000f6640000126500001c65000000ca9a3b
+    scrollPos: {x: 0, y: 75}
+    m_SelectedIDs: 04630000
+    m_LastClickedID: 25348
+    m_ExpandedIDs: 000000006a600000006300000a6300000c6300001263000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -617,7 +617,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 0}
+      snapOffset: {x: 0, y: 25}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-transform-toolbar
@@ -798,9 +798,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 24.894438, y: 17.614296, z: -28.415895}
+    m_Target: {x: 0.747241, y: 2.3425326, z: -17.715397}
     speed: 2
-    m_Value: {x: 24.894438, y: 17.614296, z: -28.415895}
+    m_Value: {x: 0.747241, y: 2.3425326, z: -17.715397}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -847,19 +847,19 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.221459, y: -0.3821424, z: 0.094858095, w: 0.8921604}
+    m_Target: {x: 0.03353659, y: -0.28212187, z: 0.009868531, w: 0.95874125}
     speed: 2
-    m_Value: {x: 0.22145623, y: -0.38213763, z: 0.09485691, w: 0.89214927}
+    m_Value: {x: 0.033536598, y: -0.28212193, z: 0.009868532, w: 0.9587414}
   m_Size:
-    m_Target: 4.771561
+    m_Target: 3.2369728
     speed: 2
-    m_Value: 4.771561
+    m_Value: 3.2369728
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_CameraSettings:
-    m_Speed: 1
+    m_Speed: 1.0005
     m_SpeedNormalized: 0.5
     m_SpeedMin: 0.001
     m_SpeedMax: 2
