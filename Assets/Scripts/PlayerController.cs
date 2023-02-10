@@ -8,11 +8,17 @@ public class PlayerController : MonoBehaviour
     private CameraController cc;
     //public float moveSpeed = 5f;
     public float jumpforce = 5f;
-    public float sideMovement = 3f;
+    private float sideMovement = 3f;
     private Vector3 direction;
     private float horizontal, vertical;
-    public bool isJumping;
+    private bool isJumping;
     private bool isOnGround;
+
+
+    //
+    public float holdTime = 0.3f;
+    private bool isTapped = false;
+    private float timeSinceLastTap = 0f;
 
     //swipe movement
     private Vector2 startTouchPosition;
@@ -22,17 +28,28 @@ public class PlayerController : MonoBehaviour
         cc = FindObjectOfType<CameraController>();
     }
 
-    void Update(){
+    private void Update(){
         //jumping
-        if (Input.touchCount > 0) {
-            var startPosition = Input.GetTouch(0).position;
-            if(Input.GetTouch(0).phase == TouchPhase.Ended && !isJumping && Input.GetTouch(0).position == startPosition){ 
-                rb.AddForce(new Vector3(0, jumpforce, 0));
-                isJumping = true;
-            }else if(Input.GetTouch(0).phase == TouchPhase.Ended ){
-                isJumping = false;
+        if(Input.touchCount > 0){
+            Touch touch = Input.GetTouch(0);
+
+            if(touch.phase == TouchPhase.Began){
+                isTapped = true;
+                timeSinceLastTap = Time.time;
             }
-            //isOnGround = false;
+
+            if(touch.phase == TouchPhase.Ended){
+                isTapped = false;
+                timeSinceLastTap = 0f;
+            }
+
+            if(isTapped && rb.transform.position.y <= 0.16f){
+                if(Time.time - timeSinceLastTap >= holdTime){
+                    Debug.Log("Long tapped");
+                    rb.AddForce(new Vector3(0, jumpforce, 0));
+                    isTapped = false;
+                }
+            }
         }
 
         //new character controller with swipe lane changing
@@ -42,7 +59,7 @@ public class PlayerController : MonoBehaviour
         if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended){
             endTouchPosition = Input.GetTouch(0).position;
 
-            if(endTouchPosition.x + 200< startTouchPosition.x){
+            if(endTouchPosition.x < startTouchPosition.x){
                 //left
                 goLeft();
 
@@ -53,21 +70,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*private void OnCollisionEnter(Collision collision) {
-        if (collision.collider.CompareTag("Ground")) {
-            isOnGround = true;
-        }
-    }*/
-
     private void goLeft(){
-        if(rb.transform.position.x == 3) return; //ne tudjon kimenni a savbol
+        if(rb.transform.position.x >= 2.5f) return; //ne tudjon kimenni a savbol
         cc.xPostion = -3;
-        rb.transform.position = new Vector3(rb.transform.position.x + sideMovement, rb.transform.position.y, rb.transform.position.z);
+        //rb.transform.position = new Vector3(rb.transform.position.x + sideMovement, rb.transform.position.y, rb.transform.position.z);
+        rb.AddForce(new Vector3(300f, 0, 0));
     }
 
     private void goRight(){
-        if(rb.transform.position.x == -3) return; //ne tudjon kimenni a savbol
+        if(rb.transform.position.x <= -2.5f) return; //ne tudjon kimenni a savbol
         cc.xPostion = 3;
-        rb.transform.position = new Vector3(rb.transform.position.x - sideMovement, rb.transform.position.y, rb.transform.position.z);
+        //rb.transform.position = new Vector3(rb.transform.position.x - sideMovement, rb.transform.position.y, rb.transform.position.z);
+        rb.AddForce(new Vector3(-300f, 0, 0));
     }
 }
