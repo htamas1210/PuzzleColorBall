@@ -4,83 +4,73 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody rb;
+    public Rigidbody rb; //jatekos teste
     private CameraController cc;
-    //public float moveSpeed = 5f;
-    public float jumpforce = 5f;
-    private float sideMovement = 3f;
-    private Vector3 direction;
-    private float horizontal, vertical;
-    private bool isJumping;
-    private bool isOnGround;
-
-
-    //
-    public float holdTime = 0.3f;
-    private bool isTapped = false;
-    private float timeSinceLastTap = 0f;
-
-    //swipe movement
-    private Vector2 startTouchPosition;
-    private Vector2 endTouchPosition;
+    public float jumpforce = 5f; //mekkorat tudjon ugorni
+    private float sideMovement = 3f; //oldalra mennyit mozogjon
+    private Vector3 direction; //jatkos pozicio
+    private bool isJumping; //levegobe van e
+    public float holdTime = 0.3f; //meddig kell nyomni egy érintéshez
+    private bool isTapped = false; //kattintas erzekeles
+    private float timeSinceLastTap = 0f; //mennyi ido telt el a legutolso erintes ota
+    private Vector2 startTouchPosition; //erintes kezdo pozicio
+    private Vector2 endTouchPosition; //erintes vegpozicio
 
     private void Awake() {
-        cc = FindObjectOfType<CameraController>();
+        cc = FindObjectOfType<CameraController>(); //kamera vezerlo referencia
     }
 
     private void Update(){
         //jumping
         if(Input.touchCount > 0){
-            Touch touch = Input.GetTouch(0);
+            Touch touch = Input.GetTouch(0); //elso erintes lekerese
 
-            if(touch.phase == TouchPhase.Began){
+            if(touch.phase == TouchPhase.Began){ //ha az erintes elkezdotott
                 isTapped = true;
                 timeSinceLastTap = Time.time;
             }
 
-            if(touch.phase == TouchPhase.Ended){
+            if(touch.phase == TouchPhase.Ended){ //ha az erintes befejezodott
                 isTapped = false;
                 timeSinceLastTap = 0f;
             }
 
             if(isTapped && rb.transform.position.y <= 0.16f){
-                if(Time.time - timeSinceLastTap >= holdTime){
+                if(Time.time - timeSinceLastTap >= holdTime){ //ha nyomva tartotta a beallitott ideig
                     Debug.Log("Long tapped");
-                    rb.AddForce(new Vector3(0, jumpforce, 0));
+                    rb.AddForce(new Vector3(0, jumpforce, 0)); //ugras
                     isTapped = false;
                 }
             }
         }
 
         //new character controller with swipe lane changing
-        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began){
-            startTouchPosition = Input.GetTouch(0).position;
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began){ //elso erintes elkezdodott
+            startTouchPosition = Input.GetTouch(0).position; 
         }
-        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended){
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended){ //elso erintes befejezodott
             endTouchPosition = Input.GetTouch(0).position;
 
-            if(endTouchPosition.x < startTouchPosition.x){
+            if(endTouchPosition.x < startTouchPosition.x){ //balra huzott
                 //left
                 goLeft();
 
-            }else if(endTouchPosition.x > startTouchPosition.x){
+            }else if(endTouchPosition.x > startTouchPosition.x){ //jobbra huzott
                 //right
                 goRight();
             }
         }
     }
 
-    private void goLeft(){
+    private void goLeft(){ //helyezze at a jatekos objektumot a balra levo savba
         if(rb.transform.position.x >= 2.5f) return; //ne tudjon kimenni a savbol
-        cc.xPostion = -3;
-        //rb.transform.position = new Vector3(rb.transform.position.x + sideMovement, rb.transform.position.y, rb.transform.position.z);
-        rb.AddForce(new Vector3(300f, 0, 0));
+        cc.xPostion = -3; //kamera xPozicioja
+        rb.transform.position = new Vector3(rb.transform.position.x + sideMovement, rb.transform.position.y, rb.transform.position.z);
     }
 
-    private void goRight(){
+    private void goRight(){ //helyezze at a jatekos objektumot a jobbra levo savba
         if(rb.transform.position.x <= -2.5f) return; //ne tudjon kimenni a savbol
-        cc.xPostion = 3;
-        //rb.transform.position = new Vector3(rb.transform.position.x - sideMovement, rb.transform.position.y, rb.transform.position.z);
-        rb.AddForce(new Vector3(-300f, 0, 0));
+        cc.xPostion = 3; //kamera xPozicioja
+        rb.transform.position = new Vector3(rb.transform.position.x - sideMovement, rb.transform.position.y, rb.transform.position.z);
     }
 }

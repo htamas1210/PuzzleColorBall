@@ -9,7 +9,6 @@ public class GroundController : MonoBehaviour
     public GameObject[] sideObjects;
     private float groundMoveSpeed = 10f;
 
-
     private void Awake() {
         //Loading modules
         loadFrom = LoadPrefabs("Prefabs/Modulok");
@@ -76,13 +75,9 @@ public class GroundController : MonoBehaviour
         }
     }
 
-    
-
     private void CreateNewGround(){
         int random = UnityEngine.Random.Range(0, loadFrom.Length);
         //ketto modullal elobb tolt be, annak az iranyanak megfeleloen, +80 a ket modull hossza
         Instantiate(loadFrom[random], new Vector3(0,0, ground[ground.Length-2].transform.position.z + 80), ground[ground.Length-2].transform.rotation);
     }
-
-
 }

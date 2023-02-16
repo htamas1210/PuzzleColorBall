@@ -26,8 +26,4 @@ public class SceneUIManager : MonoBehaviour
     public void LoadScene(int sceneIndex) {
         SceneManager.LoadScene(sceneIndex);
     }
-
-    public void DisableUI(string UIName) {
-        //to be implemented when some ui is done
-    }
 }

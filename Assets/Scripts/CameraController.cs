@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject player;
-    public Camera camera;
-    private Vector3 offset;
-    public float xPostion = 0;
+    public GameObject player; //jatekos objektum
+    public Camera camera; //fo kamera
+    private Vector3 offset; //kamera pozicio
+    public float xPostion = 0; //x tengely pozicio
 
-    void Start(){
+    private void Start(){ //kezdeskor a kamera ugorjon a jatekos moge
         offset.x = xPostion;
         offset.y = camera.transform.position.y - player.transform.position.y;
         offset.z = camera.transform.position.z - player.transform.position.z;
 
     }
 
-    void LateUpdate()
-    {
+    private void LateUpdate(){   //kamera pozicio frissitese
         if(player.transform.position.x != 3 || player.transform.position.x != -3)
             camera.transform.position = player.transform.position + offset;
     }
