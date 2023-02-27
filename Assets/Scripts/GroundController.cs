@@ -12,7 +12,7 @@ public class GroundController : MonoBehaviour
     private CollectibleSpawner cs;
 
     private void Awake() {
-        cs = FindObjectOfType<CollectibleSpawner>();
+        //cs = FindObjectOfType<CollectibleSpawner>();
         //Loading modules
         loadFrom = LoadPrefabs("Prefabs/Modulok");
         sideObjects = LoadPrefabs("Models/World Objects/World 1");
@@ -48,7 +48,7 @@ public class GroundController : MonoBehaviour
             }
         }
 
-        cs.SpawnCoin();
+        //cs.SpawnCoin();
     }
 
     private GameObject[] LoadPrefabs(string path){ //toltese be a palya objecteket a resources mappabol pl: "Prefabs/Modulok" 
