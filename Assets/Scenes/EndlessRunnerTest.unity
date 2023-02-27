@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 1201779182}
   - component: {fileID: 1201779181}
   - component: {fileID: 1201779184}
+  - component: {fileID: 1201779185}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -259,6 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadFrom: []
   sideObjects: []
+  groundMoveSpeed: 10
 --- !u!4 &1201779183
 Transform:
   m_ObjectHideFlags: 0
@@ -289,6 +291,19 @@ MonoBehaviour:
   rb: {fileID: 7917514869596290073}
   jumpforce: 350
   holdTime: 0.15
+--- !u!114 &1201779185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201779180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb1b2c4b79e23df1a2206d6ed144bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coin: {fileID: 6932244328486947952, guid: 6b6fa1b740cdb740996ab966f7dea907, type: 3}
 --- !u!1001 &1265567512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9049,7 +9064,7 @@ GameObject:
   - component: {fileID: 7917514869596290073}
   - component: {fileID: 7917514869596290074}
   m_Layer: 0
-  m_Name: BobyWithRigifyAdvanced
+  m_Name: Boby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

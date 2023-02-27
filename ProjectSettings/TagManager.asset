@@ -9,6 +9,7 @@ TagManager:
   - Water
   - Floor
   - Obstacle
+  - Collectible
   layers:
   - Default
   - TransparentFX
