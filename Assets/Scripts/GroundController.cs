@@ -9,7 +9,7 @@ public class GroundController : MonoBehaviour
     public GameObject[] sideObjects;
     public float groundMoveSpeed = 10f;
 
-    private CollectibleSpawner cs;
+    //private CollectibleSpawner cs;
 
     private void Awake() {
         //cs = FindObjectOfType<CollectibleSpawner>();
@@ -83,6 +83,6 @@ public class GroundController : MonoBehaviour
     private void CreateNewGround(){
         int random = UnityEngine.Random.Range(0, loadFrom.Length);
         //ketto modullal elobb tolt be, annak az iranyanak megfeleloen, +80 a ket modull hossza
-        Instantiate(loadFrom[random], new Vector3(0,0, ground[ground.Length-2].transform.position.z + 80), ground[ground.Length-2].transform.rotation);
+        Instantiate(loadFrom[random], new Vector3(0,0, ground[ground.Length-1].transform.position.z + 40), ground[ground.Length-1].transform.rotation);
     }
 }
