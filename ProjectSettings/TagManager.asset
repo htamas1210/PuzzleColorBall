@@ -10,6 +10,7 @@ TagManager:
   - Floor
   - Obstacle
   - Collectible
+  - DeathCollider
   layers:
   - Default
   - TransparentFX
