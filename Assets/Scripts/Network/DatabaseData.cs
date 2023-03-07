@@ -87,6 +87,29 @@ public class DatabaseData : MonoBehaviour
         }
     }
 
+
+
+    private IEnumerator IGetPlayerCoins(string username){
+        string uri = "http://localhost:3000/coinget";
+
+        var uwr = new UnityWebRequest(uri, "POST");
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+username+"}"); //palya id megadasa
+        uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend); //felkuldi a palya id-t
+        uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        uwr.SetRequestHeader("Content-Type", "application/json");
+
+        yield return uwr.SendWebRequest();
+
+        if (uwr.isNetworkError) {
+            Debug.Log(uwr.error);
+        } else {
+            Debug.Log(uwr.downloadHandler.text);
+            
+        }
+    }
+
+
+
     private IEnumerator IPostNewPlayerData() {
         input.text = "loading...";
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoinCounter : MonoBehaviour
 {
-    public ulong coin = 0;
+    public ulong coin = 0; //szedje le db-bol a playerhez a coint
 
     public void AddCoin(ulong number){
         coin += number;
