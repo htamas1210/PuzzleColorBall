@@ -12,10 +12,13 @@ public class DatabaseData : MonoBehaviour
     public HighScoreTable hst; //high score table ui
     public string jsondata; //json szoveg
 
+    private CoinCounter coinc;
+
     private void Awake() {
         hst = FindObjectOfType<HighScoreTable>(); //High Score Table referencia
         htdc = new HighScoreTableDataContainer(); //High Score Table Container objektum
         players = new PlayerList(); //jatekos lista osztaly
+        coinc = FindObjectOfType<CoinCounter>();
     }
 
     private void Start() {
@@ -36,6 +39,8 @@ public class DatabaseData : MonoBehaviour
     public void PostNewPlayerData() => StartCoroutine(IPostNewPlayerData());
     public void PostNewScoreData() => StartCoroutine(IPostNewScoreData());
     public void PostNewPalyaData() => StartCoroutine(IPostNewPalyaData());
+
+    public void GetCoinData(string username) => StartCoroutine(IGetPlayerCoins(username));
 
     private IEnumerator IGetPlayerData() {
         input.text = "Loading..."; //ideiglenes szoveg amig nem jelenik meg az adat szoveg
@@ -65,6 +70,30 @@ public class DatabaseData : MonoBehaviour
         }
     }
 
+
+    private IEnumerator IGetCurretPlayer(int userid){
+        string uri = "http://localhost:3000/currentplayer";
+
+        var uwr = new UnityWebRequest(uri, "POST");
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+userid+"}"); //palya id megadasa
+        uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend); //felkuldi a palya id-t
+        uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        uwr.SetRequestHeader("Content-Type", "application/json");
+
+        yield return uwr.SendWebRequest();
+
+        if (uwr.isNetworkError) {
+            Debug.Log(uwr.error);
+        } else {
+                jsondata = uwr.downloadHandler.text; //json szoveg eltarolasa
+                Debug.Log("current player json: " + jsondata);
+                jsonParser(jsondata); //json adat atalakitasa 
+                foreach(var p in players.player) {
+                    p.ConvertDate(); //datum eltarolasa es atalakitasa datum tipussa
+                    Debug.Log("p_id: " + p.player_id + " username: " + p.player_name + " join date: " + p.joindate.printDate() + "\n");
+                }
+            }
+    }
 
     private IEnumerator IGetHighScoreData(int palya_id){
         string uri = "http://localhost:3000/toplist";
@@ -104,7 +133,7 @@ public class DatabaseData : MonoBehaviour
             Debug.Log(uwr.error);
         } else {
             Debug.Log(uwr.downloadHandler.text);
-            
+            coinc.coin = ulong.Parse(uwr.downloadHandler.text);
         }
     }
 

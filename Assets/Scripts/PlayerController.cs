@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,49 +17,78 @@ public class PlayerController : MonoBehaviour
     private Vector2 startTouchPosition; //erintes kezdo pozicio
     private Vector2 endTouchPosition; //erintes vegpozicio
 
+    public ControllType activeControllType;
+
+    public Button leftButton;
+    public Button jumpButton;
+    public Button rightButton;
+
+    public enum ControllType
+    {
+        Swipe,
+        Button
+    }
+
     private void Awake() {
         cc = FindObjectOfType<CameraController>(); //kamera vezerlo referencia
+        activeControllType = ControllType.Button;
+    }
+
+    public void setControllType(ControllType controlltype){
+        activeControllType = controlltype;
     }
 
     private void Update(){
-        //jumping
-        if(Input.touchCount > 0){
-            Touch touch = Input.GetTouch(0); //elso erintes lekerese
+        
+        if(activeControllType == ControllType.Swipe){  
+            leftButton.gameObject.SetActive(false);        
+            jumpButton.gameObject.SetActive(false);        
+            rightButton.gameObject.SetActive(false);
 
-            if(touch.phase == TouchPhase.Began){ //ha az erintes elkezdotott
-                isTapped = true;
-                timeSinceLastTap = Time.time;
-            }
+            //jumping
+            if(Input.touchCount > 0){
+                Touch touch = Input.GetTouch(0); //elso erintes lekerese
 
-            if(touch.phase == TouchPhase.Ended){ //ha az erintes befejezodott
-                isTapped = false;
-                timeSinceLastTap = 0f;
-            }
+                if(touch.phase == TouchPhase.Began){ //ha az erintes elkezdotott
+                    isTapped = true;
+                    timeSinceLastTap = Time.time;
+                }
 
-            if(isTapped && rb.transform.position.y <= 0.16f){
-                if(Time.time - timeSinceLastTap >= holdTime){ //ha nyomva tartotta a beallitott ideig
-                    Debug.Log("Long tapped");
-                    rb.AddForce(new Vector3(0, jumpforce, 0)); //ugras
+                if(touch.phase == TouchPhase.Ended){ //ha az erintes befejezodott
                     isTapped = false;
+                    timeSinceLastTap = 0f;
+                }
+
+                if(isTapped && rb.transform.position.y <= 0.16f){
+                    if(Time.time - timeSinceLastTap >= holdTime){ //ha nyomva tartotta a beallitott ideig
+                        Debug.Log("Long tapped");
+                        jump();
+                        isTapped = false;
+                    }
                 }
             }
-        }
 
-        //new character controller with swipe lane changing
-        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began){ //elso erintes elkezdodott
-            startTouchPosition = Input.GetTouch(0).position; 
-        }
-        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended){ //elso erintes befejezodott
-            endTouchPosition = Input.GetTouch(0).position;
-
-            if(endTouchPosition.x < startTouchPosition.x){ //balra huzott
-                //left
-                goLeft();
-
-            }else if(endTouchPosition.x > startTouchPosition.x){ //jobbra huzott
-                //right
-                goRight();
+            //new character controller with swipe lane changing
+            if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began){ //elso erintes elkezdodott
+                startTouchPosition = Input.GetTouch(0).position; 
             }
+            if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended){ //elso erintes befejezodott
+                endTouchPosition = Input.GetTouch(0).position;
+
+                if(endTouchPosition.x < startTouchPosition.x){ //balra huzott
+                    //left
+                    goLeft();
+
+                }else if(endTouchPosition.x > startTouchPosition.x){ //jobbra huzott
+                    //right
+                    goRight();
+                }
+            }
+        }else if(activeControllType == ControllType.Button){
+            jumpforce = 2;
+            leftButton.onClick.AddListener(goRight);
+            jumpButton.onClick.AddListener(jump);
+            rightButton.onClick.AddListener(goLeft);
         }
     }
 
@@ -72,5 +102,9 @@ public class PlayerController : MonoBehaviour
         if(rb.transform.position.x <= -2.5f) return; //ne tudjon kimenni a savbol
         cc.xPostion = 3; //kamera xPozicioja
         rb.transform.position = new Vector3(rb.transform.position.x - sideMovement, rb.transform.position.y, rb.transform.position.z);
+    }
+
+    private void jump(){
+        rb.AddForce(new Vector3(0, jumpforce, 0)); //ugras
     }
 }
