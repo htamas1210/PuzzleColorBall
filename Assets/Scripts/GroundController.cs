@@ -42,11 +42,11 @@ public class GroundController : MonoBehaviour
         }       
         
         //ellenorzi hogy torolheto e az object
-        foreach (var item in ground){
+        /*foreach (var item in ground){
             if(CheckGroundToDestroy(item)){
                 Destroy(item);
             }
-        }
+        }*/
 
         //cs.SpawnCoin();
     }

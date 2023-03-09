@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 startTouchPosition; //erintes kezdo pozicio
     private Vector2 endTouchPosition; //erintes vegpozicio
 
-    public ControllType activeControllType;
+    public ControllType activeControllType; //ezt kell atallitani hogy swipe-os vagy button-os legyen a mozgas
 
     public Button leftButton;
     public Button jumpButton;
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake() {
         cc = FindObjectOfType<CameraController>(); //kamera vezerlo referencia
-        activeControllType = ControllType.Button;
+        activeControllType = ControllType.Swipe;
     }
 
     public void setControllType(ControllType controlltype){
@@ -86,25 +86,40 @@ public class PlayerController : MonoBehaviour
             }
         }else if(activeControllType == ControllType.Button){
             jumpforce = 2;
-            leftButton.onClick.AddListener(goRight);
+            /*leftButton.onClick.AddListener(goRight);
             jumpButton.onClick.AddListener(jump);
-            rightButton.onClick.AddListener(goLeft);
+            rightButton.onClick.AddListener(goLeft);*/
         }
     }
 
-    private void goLeft(){ //helyezze at a jatekos objektumot a balra levo savba
-        if(rb.transform.position.x >= 2.5f) return; //ne tudjon kimenni a savbol
-        cc.xPostion = -3; //kamera xPozicioja
-        rb.transform.position = new Vector3(rb.transform.position.x + sideMovement, rb.transform.position.y, rb.transform.position.z);
-    }
-
-    private void goRight(){ //helyezze at a jatekos objektumot a jobbra levo savba
+    public void goLeft(){ //helyezze at a jatekos objektumot a balra levo savba
+        Debug.Log("kattintva bal");
         if(rb.transform.position.x <= -2.5f) return; //ne tudjon kimenni a savbol
-        cc.xPostion = 3; //kamera xPozicioja
-        rb.transform.position = new Vector3(rb.transform.position.x - sideMovement, rb.transform.position.y, rb.transform.position.z);
+        //cc.xPostion = -3; //kamera xPozicioja
+        //rb.transform.position = new Vector3(rb.transform.position.x - sideMovement, rb.transform.position.y, rb.transform.position.z);
+
+        if(rb.transform.position.x >= 2.5f){
+            rb.transform.position = new Vector3(0, rb.transform.position.y, rb.transform.position.z);
+        }else if(rb.transform.position.x >= -2.5f){
+            rb.transform.position = new Vector3(-3f, rb.transform.position.y, rb.transform.position.z);
+        }
     }
 
-    private void jump(){
+    public void goRight(){ //helyezze at a jatekos objektumot a jobbra levo savba
+        Debug.Log("kattintva jobb");
+        if(rb.transform.position.x >= 2.5f) return; //ne tudjon kimenni a savbol
+        //cc.xPostion = 3; //kamera xPozicioja
+        //rb.transform.position = new Vector3(rb.transform.position.x + sideMovement, rb.transform.position.y, rb.transform.position.z);
+
+        if(rb.transform.position.x <= -2.5f){
+            rb.transform.position = new Vector3(0, rb.transform.position.y, rb.transform.position.z);
+        }else if(rb.transform.position.x >= -2.5f){
+            rb.transform.position = new Vector3(3f, rb.transform.position.y, rb.transform.position.z);
+        }
+    }
+
+    public void jump(){
+        Debug.Log("jumped");
         rb.AddForce(new Vector3(0, jumpforce, 0)); //ugras
     }
 }
