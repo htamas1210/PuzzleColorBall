@@ -19,11 +19,11 @@ public class CoinCounter : MonoBehaviour
 
     public void AddCoin(ulong number){
         coin += number;
-        coinCounterUI.text = coin.ToString();
+        coinCounterUI.text = "Coins: " + coin.ToString();
     }
 
     public void RemoveCoin(ulong number){
         coin -= number;
-        coinCounterUI.text = coin.ToString();
+        //coinCounterUI.text = "Coins: " + coin.ToString();
     }
 }

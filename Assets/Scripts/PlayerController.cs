@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake() {
         cc = FindObjectOfType<CameraController>(); //kamera vezerlo referencia
-        activeControllType = ControllType.Swipe;
+        activeControllType = ControllType.Button;
     }
 
     public void setControllType(ControllType controlltype){
@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }else if(activeControllType == ControllType.Button){
-            jumpforce = 2;
+            //jumpforce = 100;
             /*leftButton.onClick.AddListener(goRight);
             jumpButton.onClick.AddListener(jump);
             rightButton.onClick.AddListener(goLeft);*/

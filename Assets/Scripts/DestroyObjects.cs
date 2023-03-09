@@ -8,4 +8,9 @@ public class DestroyObjects : MonoBehaviour
         Debug.Log("destroy wall trigger");
         Destroy(other.gameObject);
     }
+
+    private void OnCollisionEnter(Collision other) {
+        Debug.Log("collision enter");
+        Destroy(other.gameObject);
+    }
 }
