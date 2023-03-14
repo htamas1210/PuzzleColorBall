@@ -13,6 +13,7 @@ public class GroundController : MonoBehaviour
 
     private void Awake() {
         //cs = FindObjectOfType<CollectibleSpawner>();
+
         //Loading modules
         loadFrom = LoadPrefabs("Prefabs/Modulok");
         sideObjects = LoadPrefabs("Models/World Objects/World 1");
@@ -37,11 +38,11 @@ public class GroundController : MonoBehaviour
         }     
 
         //uj ground letrehozas 
-        if(ground[ground.Length-1].transform.position.z <= 80){
+        if(ground[ground.Length-1].transform.position.z <= 120){
             CreateNewGround();
         }       
         
-        //ellenorzi hogy torolheto e az object
+        //ellenorzi hogy torolheto e az object || mar nem szukseges mert van egy trigger box
         /*foreach (var item in ground){
             if(CheckGroundToDestroy(item)){
                 Destroy(item);
@@ -82,7 +83,7 @@ public class GroundController : MonoBehaviour
 
     private void CreateNewGround(){
         int random = UnityEngine.Random.Range(0, loadFrom.Length);
-        //ketto modullal elobb tolt be, annak az iranyanak megfeleloen, +80 a ket modull hossza
+        //egy modullal elobb tolt be, annak az iranyanak megfeleloen, +80 a ket modull hossza
         Instantiate(loadFrom[random], new Vector3(0,0, ground[ground.Length-1].transform.position.z + 40), ground[ground.Length-1].transform.rotation);
     }
 }
