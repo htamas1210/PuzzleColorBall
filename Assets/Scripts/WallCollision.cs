@@ -5,15 +5,19 @@ using UnityEditor;
 
 public class WallCollision : MonoBehaviour
 {
+    jatekmanager jatekmanager;
+
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "Player"){
+
             Debug.Log("neki ment a falnak");
-            
-            #if UNITY_EDITOR
+            jatekmanager.UpdateGameState(jatekmanager.GameState.Meghaltal);
+            /*#if UNITY_EDITOR
                 EditorApplication.isPlaying = false;
             #else
                 Application.Quit();
-            #endif
+            #endif*/
+            
         }
     }
 }

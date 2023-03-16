@@ -10,9 +10,17 @@ using UnityEngine.UI;
 
 public class jatekmanager : MonoBehaviour
 {
+    //gamestate-s cuccok
     public static jatekmanager Instance;
     public GameState State;
     public static event Action<GameState> OnGameStateChanged;
+
+    //gameobjectek,gombok,scriptek
+    public GameObject playButton;
+    public GameObject garazs;
+    public GameObject homeGomb;
+    public GameObject settingsGomb;
+    public GameObject shopGomb;
 
     private void Awake()
     {
@@ -62,29 +70,82 @@ public class jatekmanager : MonoBehaviour
         Meghaltal
     }
 
+    public void ChangeToHome()
+    {
+        UpdateGameState(GameState.Home);
+        homeGomb.SetActive(true);
+        settingsGomb.SetActive(true);
+        shopGomb.SetActive(true);
+    }
+
     private async void HandleHome()
     {
+        StartCoroutine(TimerHome());
+        GetComponent<GroundController>().enabled = false;
+        GetComponent<PlayerController>().enabled = false;
+        garazs.SetActive(true);
+    }
 
+    IEnumerator TimerHome()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        playButton.SetActive(true);
+    }
+
+    public void ChangeToSettings()
+    {
+        UpdateGameState(GameState.Settings);
     }
 
     private async void HandleSettings()
     {
+        playButton.SetActive(false);
+    }
 
+    public void ChangeToShop()
+    {
+        UpdateGameState(GameState.Shop);
     }
 
     private async void HandleShop()
     {
+        playButton.SetActive(false);
+    }
 
+    public void ChangeToGame()
+    {
+        UpdateGameState(GameState.Game);
+        homeGomb.SetActive(false);
+        settingsGomb.SetActive(false);
+        shopGomb.SetActive(false);
+    }
+
+    IEnumerator TimerGame()
+    {
+        yield return new WaitForSecondsRealtime(1);
+        garazs.SetActive(false);
     }
 
     private async void HandleGame()
     {
+        playButton.SetActive(false);
+        StartCoroutine(TimerGame());
+        GetComponent <GroundController> ().enabled = true;
+        GetComponent <PlayerController>().enabled = true;
+    }
 
+    public void ChangeToMeghaltal()
+    {
+        UpdateGameState(GameState.Meghaltal);
     }
 
     private async void HandleMeghaltal()
     {
-
+        playButton.SetActive(false);
+        homeGomb.SetActive(true);
+        GetComponent<GroundController>().enabled = false;
+        GetComponent<PlayerController>().enabled = false;
+        garazs.SetActive(true);
     }
 
 

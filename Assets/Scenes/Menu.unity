@@ -128,6 +128,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 97320e10a4ea94a5085e5bf6fd4a2921, type: 3}
   m_PrefabInstance: {fileID: 379976419}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &245074209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 245074210}
+  m_Layer: 0
+  m_Name: BobbyFollowTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &245074210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245074209}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.02, y: 9.84, z: 8.78}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7917514869596290071}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &261353086
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,7 +846,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 601898925}
-  m_LocalRotation: {x: 0.045581307, y: -0.70516795, z: 0.045520637, w: 0.7061079}
+  m_LocalRotation: {x: 0.045581304, y: -0.70516795, z: 0.045520633, w: 0.7061079}
   m_LocalPosition: {x: 2.27, y: 4.16525, z: 3.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -954,6 +985,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 601898927}
           m_ObjectArgumentAssemblyTypeName: Cinemachine.CinemachineVirtualCamera,
             Cinemachine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1201779188}
+        m_TargetAssemblyTypeName: jatekmanager, Assembly-CSharp
+        m_MethodName: ChangeToSettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1101,6 +1144,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 1513686737}
           m_ObjectArgumentAssemblyTypeName: Cinemachine.CinemachineVirtualCamera,
             Cinemachine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1201779188}
+        m_TargetAssemblyTypeName: jatekmanager, Assembly-CSharp
+        m_MethodName: ChangeToGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1371,6 +1426,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 936985377}
           m_ObjectArgumentAssemblyTypeName: Cinemachine.CinemachineVirtualCamera,
             Cinemachine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1201779188}
+        m_TargetAssemblyTypeName: jatekmanager, Assembly-CSharp
+        m_MethodName: ChangeToShop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1934,6 +2001,7 @@ GameObject:
   - component: {fileID: 1201779185}
   - component: {fileID: 1201779186}
   - component: {fileID: 1201779187}
+  - component: {fileID: 1201779188}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -2057,6 +2125,24 @@ MonoBehaviour:
   playButton: {fileID: 645543792}
   cameraTransform: {fileID: 0}
   cameraTransformOriginal: {x: 0, y: 0, z: 0}
+--- !u!114 &1201779188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201779180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1faa9a1ba58437f92f33c86f8a89a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  State: 0
+  playButton: {fileID: 645543792}
+  garazs: {fileID: 1876191122}
+  homeGomb: {fileID: 1543880549}
+  settingsGomb: {fileID: 644899047}
+  shopGomb: {fileID: 835649272}
 --- !u!1 &1219467652
 GameObject:
   m_ObjectHideFlags: 0
@@ -2330,8 +2416,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1513686735}
-  m_LocalRotation: {x: 0.21786386, y: -0.00015033508, z: 0.000033558692, w: 0.9759792}
-  m_LocalPosition: {x: -0.25, y: 5.77, z: 3.49}
+  m_LocalRotation: {x: 0.22590086, y: 0.0030496058, z: -0.0007071928, w: 0.9741453}
+  m_LocalPosition: {x: -0.28647116, y: 6.2664723, z: 2.6748314}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2358,7 +2444,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 1731748927}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 245074210}
   m_Lens:
     FieldOfView: 70
     OrthographicSize: 5
@@ -2469,6 +2555,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 1615993236}
           m_ObjectArgumentAssemblyTypeName: Cinemachine.CinemachineVirtualCamera,
             Cinemachine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1201779188}
+        m_TargetAssemblyTypeName: jatekmanager, Assembly-CSharp
+        m_MethodName: ChangeToHome
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3189,6 +3287,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835842688}
   m_Mesh: {fileID: 2212009239438826721, guid: 15f50b6494f632e40bdc081ecf2a2ad4, type: 3}
+--- !u!1 &1876191122 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 97320e10a4ea94a5085e5bf6fd4a2921, type: 3}
+  m_PrefabInstance: {fileID: 379976419}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1895677325
 GameObject:
   m_ObjectHideFlags: 0
@@ -3257,8 +3360,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895677325}
-  m_LocalRotation: {x: 0.21786386, y: -0.00015033508, z: 0.000033558692, w: 0.9759792}
-  m_LocalPosition: {x: 0.026471168, y: 4.573528, z: -22.794832}
+  m_LocalRotation: {x: 0.0010953929, y: 0.9979507, z: -0.061456818, w: 0.017787255}
+  m_LocalPosition: {x: -0.15911984, y: 2.9687777, z: -12.856641}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10867,6 +10970,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4391698887412137587, guid: d73ae45b499e5f74ba3e0d287b87893c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4391698887412137587, guid: d73ae45b499e5f74ba3e0d287b87893c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5176207908013364664, guid: d73ae45b499e5f74ba3e0d287b87893c, type: 3}
       propertyPath: m_TagString
       value: Floor
@@ -13101,6 +13212,7 @@ Transform:
   - {fileID: 4837085586104442566}
   - {fileID: 481417098}
   - {fileID: 1731748927}
+  - {fileID: 245074210}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
