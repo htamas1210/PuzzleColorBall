@@ -6,13 +6,15 @@ using UnityEngine.Networking;
 
 public class DatabaseData : MonoBehaviour
 {
-    public TMP_InputField input; //szoveg megjelenitese
+    //public TMP_InputField input; //szoveg megjelenitese
     public PlayerList players; //jatekos adatok
     public HighScoreTableDataContainer htdc; //itt van a tomb
     public HighScoreTable hst; //high score table ui
     public string jsondata; //json szoveg
 
     private CoinCounter coinc;
+
+    private ulong coins = 0;
 
     private void Awake() {
         hst = FindObjectOfType<HighScoreTable>(); //High Score Table referencia
@@ -22,7 +24,8 @@ public class DatabaseData : MonoBehaviour
     }
 
     private void Start() {
-        GetHighScoreData(2);
+        //GetHighScoreData(2);
+        //StartCoroutine(GetCoinData(1));
     }
 
     public void jsonParser(string jsondata) { //beerkezo json adat eltarolasa
@@ -33,6 +36,11 @@ public class DatabaseData : MonoBehaviour
         htdc = JsonUtility.FromJson<HighScoreTableDataContainer>("{\"htd\":" + jsondata + "}");       
     }
 
+    public void jsonParserCoin(string jsondata){
+        coins = ulong.Parse(jsondata.Substring(14,2));
+        Debug.Log(jsondata.Substring(14,2));
+    }
+
     //fuggvenyek amik meghivjak a rutint
     public void GetPlayerData() => StartCoroutine(IGetPlayerData());
     public void GetHighScoreData(int palya_id) => StartCoroutine(IGetHighScoreData(palya_id));
@@ -40,10 +48,35 @@ public class DatabaseData : MonoBehaviour
     public void PostNewScoreData() => StartCoroutine(IPostNewScoreData());
     public void PostNewPalyaData() => StartCoroutine(IPostNewPalyaData());
 
-    public void GetCoinData(string username) => StartCoroutine(IGetPlayerCoins(username));
+    public ulong GetCoins(int userid){
+        StartCoroutine(GetCoinData(userid));
+
+        return coins;
+    }
+
+    private IEnumerator GetCoinData(int userid){
+        string uri = "http://localhost:3000/coinget";
+
+        var uwr = new UnityWebRequest(uri, "GET");
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+userid+"}");
+        uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend); 
+        uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        uwr.SetRequestHeader("Content-Type", "application/json");
+
+        yield return uwr.SendWebRequest();
+
+        if (uwr.isNetworkError) {
+            Debug.Log(uwr.error);
+        } else {
+            jsondata = uwr.downloadHandler.text; //json szoveg eltarolasa
+            Debug.Log(jsondata);
+            jsonParserCoin(jsondata);
+        }
+    }
+
 
     private IEnumerator IGetPlayerData() {
-        input.text = "Loading..."; //ideiglenes szoveg amig nem jelenik meg az adat szoveg
+        //input.text = "Loading..."; //ideiglenes szoveg amig nem jelenik meg az adat szoveg
 
         string uri = "http://localhost:3000/player"; //backend vegpont linkje
 
@@ -51,7 +84,7 @@ public class DatabaseData : MonoBehaviour
             yield return request.SendWebRequest(); //amig be nem fejezodik az fv ide fog visszaterni
 
             if(request.isNetworkError || request.isHttpError) { //ha valami hiba tortent kiirjuk a kepernyore
-                input.text = request.error;
+                //input.text = request.error;
             } else {
                 jsondata = request.downloadHandler.text; //json szoveg eltarolasa
                 jsonParser(jsondata); //json adat atalakitasa 
@@ -60,11 +93,11 @@ public class DatabaseData : MonoBehaviour
                     Debug.Log("p_id: " + p.player_id + " username: " + p.player_name + " join date: " + p.joindate.printDate() + "\n");
                 }
 
-                input.text = "";
+                //input.text = "";
                 foreach(var p in players.player) {
                     p.ConvertDate();
                     //adatok kiirasa kepernyore
-                    input.text += "p_id: " + p.player_id + " username: " + p.player_name + " join date: " + p.joindate.printDate() + "\n";
+                    //input.text += "p_id: " + p.player_id + " username: " + p.player_name + " join date: " + p.joindate.printDate() + "\n";
                 }
             }
         }
@@ -85,14 +118,14 @@ public class DatabaseData : MonoBehaviour
         if (uwr.isNetworkError) {
             Debug.Log(uwr.error);
         } else {
-                jsondata = uwr.downloadHandler.text; //json szoveg eltarolasa
-                Debug.Log("current player json: " + jsondata);
-                jsonParser(jsondata); //json adat atalakitasa 
-                foreach(var p in players.player) {
-                    p.ConvertDate(); //datum eltarolasa es atalakitasa datum tipussa
-                    Debug.Log("p_id: " + p.player_id + " username: " + p.player_name + " join date: " + p.joindate.printDate() + "\n");
-                }
+            jsondata = uwr.downloadHandler.text; //json szoveg eltarolasa
+            Debug.Log("current player json: " + jsondata);
+            jsonParser(jsondata); //json adat atalakitasa 
+            foreach(var p in players.player) {
+                p.ConvertDate(); //datum eltarolasa es atalakitasa datum tipussa
+                Debug.Log("p_id: " + p.player_id + " username: " + p.player_name + " join date: " + p.joindate.printDate() + "\n");
             }
+        }
     }
 
     private IEnumerator IGetHighScoreData(int palya_id){
@@ -109,7 +142,7 @@ public class DatabaseData : MonoBehaviour
         if (uwr.isNetworkError) {
             Debug.Log(uwr.error);
         } else {
-            input.text = uwr.downloadHandler.text;
+            //input.text = uwr.downloadHandler.text;
             Debug.Log(uwr.downloadHandler.text);
             jsonParserHighScore(uwr.downloadHandler.text);
             hst.CreateTable(htdc.htd); //high score tabla letrehozasa
@@ -129,7 +162,7 @@ public class DatabaseData : MonoBehaviour
         if (uwr.isNetworkError) {
             Debug.Log(uwr.error);
         } else {
-            input.text = uwr.downloadHandler.text;
+            //input.text = uwr.downloadHandler.text;
             Debug.Log(uwr.downloadHandler.text);
             jsonParserHighScore(uwr.downloadHandler.text);
             hst.CreateTable(htdc.htd); //high score tabla letrehozasa
@@ -160,7 +193,7 @@ public class DatabaseData : MonoBehaviour
 
 
     private IEnumerator IPostNewPlayerData() {
-        input.text = "loading...";
+        //input.text = "loading...";
 
         string uri = "http://localhost:3000/newplayer";
 
@@ -175,13 +208,13 @@ public class DatabaseData : MonoBehaviour
         if (uwr.isNetworkError) {
             Debug.Log(uwr.error);
         } else {
-            input.text = uwr.downloadHandler.text; //vissza erzkezes arrol hogy sikeres a felvitel vagy nem
+            //input.text = uwr.downloadHandler.text; //vissza erzkezes arrol hogy sikeres a felvitel vagy nem
             Debug.Log(uwr.downloadHandler.text);           
         }
     }
 
     private IEnumerator IPostNewScoreData() {
-        input.text = "loading...";
+        //input.text = "loading...";
 
         string uri = "http://localhost:3000/newscore";
 
@@ -197,13 +230,13 @@ public class DatabaseData : MonoBehaviour
         if (uwr.isNetworkError) {
             Debug.Log(uwr.error);
         } else {
-            input.text = uwr.downloadHandler.text;
+            //input.text = uwr.downloadHandler.text;
             Debug.Log(uwr.downloadHandler.text);
         }
     }
 
     private IEnumerator IPostNewPalyaData() {
-        input.text = "loading...";
+        //input.text = "loading...";
 
         string uri = "http://localhost:3000/newpalya";
 
@@ -218,7 +251,7 @@ public class DatabaseData : MonoBehaviour
         if (uwr.isNetworkError) {
             Debug.Log(uwr.error);
         } else {
-            input.text = uwr.downloadHandler.text;
+            //input.text = uwr.downloadHandler.text;
             Debug.Log(uwr.downloadHandler.text);
         }
     }

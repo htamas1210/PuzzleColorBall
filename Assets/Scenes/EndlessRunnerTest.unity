@@ -926,7 +926,6 @@ GameObject:
   - component: {fileID: 1201779184}
   - component: {fileID: 1201779185}
   - component: {fileID: 1201779186}
-  - component: {fileID: 1201779187}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1026,20 +1025,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fpsText: {fileID: 1572233531}
   _hudRefreshRate: 1
---- !u!114 &1201779187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1201779180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d858282f94188744f80e5d0e2883a3a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: 0
-  scoreUI: {fileID: 834582560}
 --- !u!1 &1219467652
 GameObject:
   m_ObjectHideFlags: 0
@@ -11249,7 +11234,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -11263,7 +11248,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 7398140401948337837}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 1.7212968
   m_Height: 6.3698125
   m_Direction: 1

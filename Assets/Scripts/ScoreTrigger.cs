@@ -9,7 +9,7 @@ public class ScoreTrigger : MonoBehaviour
         score = FindObjectOfType<Score>();
     }
      private void OnTriggerEnter(Collider other) {
-        Debug.Log("score triggered");
+        //Debug.Log("score triggered");
         if(other.gameObject.tag == "Player"){
             score.addScore(1);
         }

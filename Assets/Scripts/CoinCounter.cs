@@ -7,14 +7,17 @@ using System.Text;
 
 public class CoinCounter : MonoBehaviour
 {
-    public ulong coin; //szedje le db-bol a playerhez a coint
+    public ulong coin = ulong.MaxValue; //szedje le db-bol a playerhez a coint
     public TMP_Text coinCounterUI;
     private string path;
     private StreamWriter writer;
     private StreamReader reader;
 
+    private DatabaseData db;
+
     private void Awake() {  
-        path = Application.persistentDataPath + "/coins.txt";
+        db = FindObjectOfType<DatabaseData>();
+        /*path = Application.persistentDataPath + "/coins.txt";
 
         if(!File.Exists(path)){ //ha nincs meg ilyen fajl hozza letre
             writer = new StreamWriter(path, false, Encoding.Default);
@@ -25,10 +28,15 @@ public class CoinCounter : MonoBehaviour
         reader = new StreamReader(path);
         coin = ulong.Parse(reader.ReadLine());
         reader.Close();
-        Debug.Log("Coins at start: " + coin);
+        Debug.Log("Coins at start: " + coin);*/
 
-        coinCounterUI.text = "Coins: " + coin.ToString();
+        /*Debug.Log("coin 1:  " + coin);
+        coin = db.GetCoins(1);
+        Debug.Log("itt van coin");
+        Debug.Log("coin 2:  " + coin);
+        coinCounterUI.text = "Coins: " + coin.ToString();*/
     }
+
 
     public void AddCoin(ulong number){
         coin += number;
