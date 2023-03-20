@@ -42,17 +42,17 @@ public class CoinCounter : MonoBehaviour
         coin += number;
         coinCounterUI.text = "Coins: " + coin.ToString();
        
-        writer = new StreamWriter(path, false, Encoding.Default);
+        /*writer = new StreamWriter(path, false, Encoding.Default);
         writer.Write(coin);
-        writer.Close();
+        writer.Close();*/
     }
 
     public void RemoveCoin(ulong number){
         coin -= number;
         //coinCounterUI.text = "Coins: " + coin.ToString();
         
-        writer = new StreamWriter(path, false, Encoding.Default);
+        /*writer = new StreamWriter(path, false, Encoding.Default);
         writer.Write(coin);
-        writer.Close();
+        writer.Close();*/
     }
 }

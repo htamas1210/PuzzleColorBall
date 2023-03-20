@@ -22,14 +22,24 @@ public class jatekmanager : MonoBehaviour
     public GameObject settingsGomb;
     public GameObject shopGomb;
 
+
+    private DatabaseData db;
+    private UsernameHandler usernameHandler;
+    private Score score;
+    private Timer timer;
+
     private void Awake()
     {
+        Application.targetFrameRate = 60;
         Instance = this;
+        db = FindObjectOfType<DatabaseData>();
+        usernameHandler = FindObjectOfType<UsernameHandler>();
+        score = FindObjectOfType<Score>();
+        timer = FindObjectOfType<Timer>();
     }
 
     private void Start()
     {
-
         UpdateGameState(GameState.Home);
     }
 
@@ -114,10 +124,10 @@ public class jatekmanager : MonoBehaviour
 
     public void ChangeToGame()
     {
-        UpdateGameState(GameState.Game);
         homeGomb.SetActive(false);
         settingsGomb.SetActive(false);
         shopGomb.SetActive(false);
+        UpdateGameState(GameState.Game);
     }
 
     IEnumerator TimerGame()
@@ -132,6 +142,7 @@ public class jatekmanager : MonoBehaviour
         StartCoroutine(TimerGame());
         GetComponent <GroundController> ().enabled = true;
         GetComponent <PlayerController>().enabled = true;
+        timer.playTime.Start();
     }
 
     public void ChangeToMeghaltal()
@@ -141,15 +152,21 @@ public class jatekmanager : MonoBehaviour
 
     private async void HandleMeghaltal()
     {
-        playButton.SetActive(false);
+        //ora leallitasa
+        timer.playTime.Stop();
+
+        //Valtson at high score tabla scenebe utana ha megnyomott egy gombot ugy menjen vissza a menube
+        //toltse fel az adatokat a run-rol
+        db.PostNewScoreData(usernameHandler.userid, score.score, timer.convertTimeToString());
+
+        SceneUIManager.LoadScene(1); //HighScore scene
+
+        //
+
+        /*playButton.SetActive(false);
         homeGomb.SetActive(true);
         GetComponent<GroundController>().enabled = false;
         GetComponent<PlayerController>().enabled = false;
-        garazs.SetActive(true);
+        garazs.SetActive(true);*/
     }
-
-
-    //application target frame rate
 }
-
-   

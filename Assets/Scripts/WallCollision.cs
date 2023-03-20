@@ -11,7 +11,7 @@ public class WallCollision : MonoBehaviour
         if(other.gameObject.tag == "Player"){
 
             Debug.Log("neki ment a falnak");
-            jatekmanager.UpdateGameState(jatekmanager.GameState.Meghaltal);
+            jatekmanager.Instance.UpdateGameState(jatekmanager.GameState.Meghaltal);
             /*#if UNITY_EDITOR
                 EditorApplication.isPlaying = false;
             #else

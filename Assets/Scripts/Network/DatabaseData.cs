@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Networking;
+using System.IO;
+using System.Text;
 
 public class DatabaseData : MonoBehaviour
 {
@@ -10,25 +12,29 @@ public class DatabaseData : MonoBehaviour
     public PlayerList players; //jatekos adatok
     public HighScoreTableDataContainer htdc; //itt van a tomb
     public HighScoreTable hst; //high score table ui
+
+    private StreamWriter writer;
     public string jsondata; //json szoveg
 
     private CoinCounter coinc;
 
-    private ulong coins = 0;
+    public ulong coins = 0;
 
     private void Awake() {
         hst = FindObjectOfType<HighScoreTable>(); //High Score Table referencia
         htdc = new HighScoreTableDataContainer(); //High Score Table Container objektum
-        players = new PlayerList(); //jatekos lista osztaly
+        
         coinc = FindObjectOfType<CoinCounter>();
+        //writer = new StreamWriter(Application.persistentDataPath + "/coins.txt", false, Encoding.Default);
     }
 
     private void Start() {
-        //GetHighScoreData(2);
+        //GetHighScoreData();
         //StartCoroutine(GetCoinData(1));
     }
 
     public void jsonParser(string jsondata) { //beerkezo json adat eltarolasa
+        players = new PlayerList(); //jatekos lista osztaly
         players = JsonUtility.FromJson<PlayerList>("{\"player\":" + jsondata + "}");       
     }
 
@@ -36,16 +42,23 @@ public class DatabaseData : MonoBehaviour
         htdc = JsonUtility.FromJson<HighScoreTableDataContainer>("{\"htd\":" + jsondata + "}");       
     }
 
-    public void jsonParserCoin(string jsondata){
-        coins = ulong.Parse(jsondata.Substring(14,2));
-        Debug.Log(jsondata.Substring(14,2));
+    public void ParserCoin(string jsondata){
+        string data = "";
+        for (int i = 0; i < jsondata.Length; i++)
+        {
+            if(jsondata[i] == '0' || jsondata[i] == '1' || jsondata[i] == '2' || jsondata[i] == '3' || jsondata[i] == '4' || jsondata[i] == '5' || jsondata[i] == '6' || jsondata[i] == '7' || jsondata[i] == '8' || jsondata[i] == '9'){
+                data += jsondata[i]; //kiszedi a szamokat a stringbol
+            }
+        }
+        Debug.Log(data);
+        coins = ulong.Parse(data);
     }
 
     //fuggvenyek amik meghivjak a rutint
     public void GetPlayerData() => StartCoroutine(IGetPlayerData());
-    public void GetHighScoreData(int palya_id) => StartCoroutine(IGetHighScoreData(palya_id));
+    public void GetHighScoreData() => StartCoroutine(IGetHighScoreData());
     public void PostNewPlayerData() => StartCoroutine(IPostNewPlayerData());
-    public void PostNewScoreData() => StartCoroutine(IPostNewScoreData());
+    public void PostNewScoreData(int playerid, ulong score, string time) => StartCoroutine(IPostNewScoreData(playerid, score, time));
     public void PostNewPalyaData() => StartCoroutine(IPostNewPalyaData());
 
     public ulong GetCoins(int userid){
@@ -70,7 +83,7 @@ public class DatabaseData : MonoBehaviour
         } else {
             jsondata = uwr.downloadHandler.text; //json szoveg eltarolasa
             Debug.Log(jsondata);
-            jsonParserCoin(jsondata);
+            ParserCoin(jsondata);
         }
     }
 
@@ -128,12 +141,12 @@ public class DatabaseData : MonoBehaviour
         }
     }
 
-    private IEnumerator IGetHighScoreData(int palya_id){
+    private IEnumerator IGetHighScoreData(){
         string uri = "http://localhost:3000/toplist";
 
         var uwr = new UnityWebRequest(uri, "POST");
-        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+palya_id+"}"); //palya id megadasa
-        uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend); //felkuldi a palya id-t
+        //byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+palya_id+"}"); //palya id megadasa
+        //uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend); //felkuldi a palya id-t
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         uwr.SetRequestHeader("Content-Type", "application/json");
 
@@ -213,14 +226,21 @@ public class DatabaseData : MonoBehaviour
         }
     }
 
-    private IEnumerator IPostNewScoreData() {
+    private IEnumerator IPostNewScoreData(int playerid, ulong score, string time) {
         //input.text = "loading...";
 
         string uri = "http://localhost:3000/newscore";
 
+        //felhasznalonevet ki kell irni fajlba
+        //ha username keresve lenne es ha nincs akkor kap egy uj id-t ami ideiglenesen tarolodik (ures string a visszateres?)
+        //ha van akkor akkor lekeri az id-t es ideiglenesen tarolja
+
+
         var uwr = new UnityWebRequest(uri, "POST");
         byte[] jsonToSend = 
-        new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":2,\"bevitel2\":1,\"bevitel3\":400,\"bevitel4\":\"00:05:06\"}");
+        new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+playerid+",\"bevitel2\":400,\"bevitel3\":\"00:05:06\"}");
+        //playerid, points, time
+        
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         uwr.SetRequestHeader("Content-Type", "application/json");
