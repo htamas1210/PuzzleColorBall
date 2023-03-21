@@ -12,7 +12,7 @@ public class HighScoreTable : MonoBehaviour
     private HighScoreTableDataContainer htdc; //A tombot tarolo osztalyhoz referencia
 
     private void Start() {
-        dbData.GetHighScoreData();
+        //dbData.GetHighScoreData();
     }
 
     public void CreateTable(HighScoreTableData[] htd){

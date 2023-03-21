@@ -31,6 +31,7 @@ public class UsernameHandler : MonoBehaviour
     private void Start() {
         usernameCheck();
     }
+    
 
     public void ReadUsername(string username){ //kiirja az inputbol kapott usernevet fajlba
         this.username = username;

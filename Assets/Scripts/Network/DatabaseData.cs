@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.Networking;
 using System.IO;
 using System.Text;
+using UnityEngine.SceneManagement;
 
 public class DatabaseData : MonoBehaviour
 {
@@ -29,12 +30,12 @@ public class DatabaseData : MonoBehaviour
     }
 
     private void Start() {
-        //GetHighScoreData();
+        GetHighScoreData();
         //StartCoroutine(GetCoinData(1));
     }
 
     public void jsonParser(string jsondata) { //beerkezo json adat eltarolasa
-        players = new PlayerList(); //jatekos lista osztaly
+        players = new PlayerList(); //jatekos lista osztaly || lehet okozza a hibat!!
         players = JsonUtility.FromJson<PlayerList>("{\"player\":" + jsondata + "}");       
     }
 
@@ -117,6 +118,7 @@ public class DatabaseData : MonoBehaviour
     }
 
 
+
     private IEnumerator IGetCurretPlayer(int userid){
         string uri = "http://localhost:3000/currentplayer";
 
@@ -158,7 +160,8 @@ public class DatabaseData : MonoBehaviour
             //input.text = uwr.downloadHandler.text;
             Debug.Log(uwr.downloadHandler.text);
             jsonParserHighScore(uwr.downloadHandler.text);
-            hst.CreateTable(htdc.htd); //high score tabla letrehozasa
+            if(SceneManager.GetActiveScene().name.Equals("HighScore"))
+                hst.CreateTable(htdc.htd); //high score tabla letrehozasa
         }
     }
 

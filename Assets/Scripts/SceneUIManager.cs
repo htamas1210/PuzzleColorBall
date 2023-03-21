@@ -5,17 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneUIManager : MonoBehaviour
 {
-    private int menuSceneIndex = 0, currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
     public void LoadMenuScene() {
-        SceneManager.LoadScene(menuSceneIndex);
+        SceneManager.LoadScene(0);
     }
 
     public void LoadPauseMenu() {
-        //to be implemented when the ui is done
-    }
-
-    public void LoadOptionsMenu() {
         //to be implemented when the ui is done
     }
 
@@ -26,4 +20,5 @@ public class SceneUIManager : MonoBehaviour
     public static void LoadScene(int sceneIndex) {
         SceneManager.LoadScene(sceneIndex);
     }
+    
 }
