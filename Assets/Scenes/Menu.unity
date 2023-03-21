@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5615895, g: 0.72180885, b: 0.81785697, a: 1}
+  m_IndirectSpecularColor: {r: 0.56158954, g: 0.7218083, b: 0.8178571, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1001,7 +1001,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 601898925}
-  m_LocalRotation: {x: 0.045581315, y: -0.70516795, z: 0.04552063, w: 0.7061079}
+  m_LocalRotation: {x: 0.045581307, y: -0.70516795, z: 0.045520626, w: 0.7061079}
   m_LocalPosition: {x: 2.27, y: 4.16525, z: 3.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2843,15 +2843,15 @@ GameObject:
   m_Component:
   - component: {fileID: 1201779183}
   - component: {fileID: 1201779186}
+  - component: {fileID: 1201779192}
   - component: {fileID: 1201779189}
   - component: {fileID: 1201779181}
   - component: {fileID: 1201779182}
   - component: {fileID: 1201779184}
-  - component: {fileID: 1201779188}
   - component: {fileID: 1201779185}
+  - component: {fileID: 1201779188}
   - component: {fileID: 1201779190}
   - component: {fileID: 1201779191}
-  - component: {fileID: 1201779192}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -2969,6 +2969,11 @@ MonoBehaviour:
   homeGomb: {fileID: 1543880549}
   settingsGomb: {fileID: 644899047}
   shopGomb: {fileID: 835649272}
+  goLeftButton: {fileID: 2129484386}
+  jumpButton: {fileID: 284201298}
+  goRightButton: {fileID: 2069815689}
+  scoreText: {fileID: 702512603}
+  timerText: {fileID: 1890329291}
 --- !u!114 &1201779189
 MonoBehaviour:
   m_ObjectHideFlags: 0

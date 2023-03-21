@@ -11,6 +11,10 @@ public class HighScoreTable : MonoBehaviour
     private DatabaseData dbData; //Database osztalyhoz referencia
     private HighScoreTableDataContainer htdc; //A tombot tarolo osztalyhoz referencia
 
+    private void Start() {
+        dbData.GetHighScoreData();
+    }
+
     public void CreateTable(HighScoreTableData[] htd){
         foreach(HighScoreTableData item in htd){
             item.kiir(); //konzolra Debug miatt kiirja az adatokat

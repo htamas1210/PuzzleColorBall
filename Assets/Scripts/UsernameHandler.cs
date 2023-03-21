@@ -68,7 +68,6 @@ public class UsernameHandler : MonoBehaviour
             usernameInputCanvas.gameObject.SetActive(true);
             inputBackground.SetActive(true);
             input.gameObject.SetActive(true);
-
         }
 
         if(File.Exists(path)){

@@ -144,7 +144,7 @@ public class DatabaseData : MonoBehaviour
     private IEnumerator IGetHighScoreData(){
         string uri = "http://localhost:3000/toplist";
 
-        var uwr = new UnityWebRequest(uri, "POST");
+        var uwr = new UnityWebRequest(uri, "GET");
         //byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+palya_id+"}"); //palya id megadasa
         //uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend); //felkuldi a palya id-t
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -238,7 +238,7 @@ public class DatabaseData : MonoBehaviour
 
         var uwr = new UnityWebRequest(uri, "POST");
         byte[] jsonToSend = 
-        new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+playerid+",\"bevitel2\":400,\"bevitel3\":\"00:05:06\"}");
+        new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+playerid+",\"bevitel2\":"+score+",\"bevitel3\":\""+time+"\"}");
         //playerid, points, time
         
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
