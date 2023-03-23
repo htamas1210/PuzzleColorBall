@@ -38,6 +38,7 @@ public class jatekmanager : MonoBehaviour
     private void Awake()
     {
         Application.targetFrameRate = 60;
+        
         Instance = this;
         db = FindObjectOfType<DatabaseData>();
         usernameHandler = FindObjectOfType<UsernameHandler>();
