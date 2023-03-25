@@ -3276,6 +3276,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadFrom: []
   sideObjects: []
+  materials:
+  - {fileID: 2100000, guid: 97cabee3711df3b4b944878d6d30edda, type: 2}
+  - {fileID: 2100000, guid: 197ee10712c66054cb2f88781c8d94f4, type: 2}
+  - {fileID: 2100000, guid: 1afa0118e3d81e54598c9479c5e31eb9, type: 2}
+  - {fileID: 2100000, guid: cec427bc0abfad54ca8fe959fd2360cf, type: 2}
+  materialIndex: 0
   groundMoveSpeed: 10
 --- !u!4 &1201779183
 Transform:
@@ -4777,8 +4783,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895677325}
-  m_LocalRotation: {x: 0.045581307, y: -0.70516795, z: 0.045520626, w: 0.7061079}
-  m_LocalPosition: {x: 2.546471, y: 2.9687777, z: -22.464832}
+  m_LocalRotation: {x: 0.0010953943, y: 0.9979507, z: -0.06145683, w: 0.017787272}
+  m_LocalPosition: {x: -0.15911984, y: 2.9687777, z: -12.856641}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

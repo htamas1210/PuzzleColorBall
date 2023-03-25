@@ -119,7 +119,9 @@ public class PlayerController : MonoBehaviour
     }
 
     public void jump(){
+        if(rb.transform.position.y <= 0.16f)
+            rb.AddForce(new Vector3(0, jumpforce, 0)); //ugras
+        
         Debug.Log("jumped");
-        rb.AddForce(new Vector3(0, jumpforce, 0)); //ugras
     }
 }

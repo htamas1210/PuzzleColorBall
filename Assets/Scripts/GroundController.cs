@@ -7,6 +7,8 @@ public class GroundController : MonoBehaviour
     private GameObject[] ground;
     public GameObject[] loadFrom;
     public GameObject[] sideObjects;
+    public Material[] materials;
+    public int materialIndex = 0;
     public float groundMoveSpeed = 10f;
 
     //private CollectibleSpawner cs;
@@ -40,6 +42,25 @@ public class GroundController : MonoBehaviour
         //uj ground letrehozas 
         if(ground[ground.Length-1].transform.position.z <= 120){
             CreateNewGround();
+            
+            ground = GameObject.FindGameObjectsWithTag("Ground");
+
+            for(int i = 0; i < ground.Length; i++){
+                /*foreach (GameObject child in ground[i].transform){
+                    if (child.name == "Lane1" || child.name == "Lane2" || child.name == "Lane3"){
+                        Debug.Log(child.name + " " + transform.gameObject.name);
+                    }
+                }*/
+                Transform[] lanes = new Transform[3];
+                lanes[0] = ground[i].transform.Find("Lane1");
+                lanes[1] = ground[i].transform.Find("Lane2");
+                lanes[2] = ground[i].transform.Find("Lane3");
+
+                foreach(var item in lanes){
+                    item.GetComponent<MeshRenderer>().material = materials[materialIndex];
+                }
+
+            }         
         }       
         
         //ellenorzi hogy torolheto e az object || mar nem szukseges mert van egy trigger box
@@ -56,6 +77,10 @@ public class GroundController : MonoBehaviour
         GameObject[] arr = Resources.LoadAll<GameObject>(path);
 
         return arr;
+    }
+
+    public void changeMaterialIndex(){
+        
     }
 
     private bool CheckGroundToDestroy(GameObject toCheck){
@@ -83,7 +108,7 @@ public class GroundController : MonoBehaviour
 
     private void CreateNewGround(){
         int random = UnityEngine.Random.Range(0, loadFrom.Length);
-        //egy modullal elobb tolt be, annak az iranyanak megfeleloen, +80 a ket modull hossza
+        //egy modullal elobb tolt be, annak az iranyanak megfeleloen, +80 a ket modul hossza
         Instantiate(loadFrom[random], new Vector3(0,0, ground[ground.Length-1].transform.position.z + 40), ground[ground.Length-1].transform.rotation);
     }
 }
