@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5615895, g: 0.72180885, b: 0.81785697, a: 1}
+  m_IndirectSpecularColor: {r: 0.56158954, g: 0.7218083, b: 0.8178571, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3276,6 +3276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadFrom: []
   sideObjects: []
+  sideObjectsSpawned: []
   materials:
   - {fileID: 2100000, guid: 97cabee3711df3b4b944878d6d30edda, type: 2}
   - {fileID: 2100000, guid: 197ee10712c66054cb2f88781c8d94f4, type: 2}
@@ -12409,6 +12410,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Floor
       objectReference: {fileID: 0}
+    - target: {fileID: 7191957008091885843, guid: d73ae45b499e5f74ba3e0d287b87893c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 97cabee3711df3b4b944878d6d30edda, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d73ae45b499e5f74ba3e0d287b87893c, type: 3}
 --- !u!1 &5948498191493442793

@@ -7,9 +7,11 @@ public class GroundController : MonoBehaviour
     private GameObject[] ground;
     public GameObject[] loadFrom;
     public GameObject[] sideObjects;
+    public GameObject[] sideObjectsSpawned;
     public Material[] materials;
     public int materialIndex = 0;
     public float groundMoveSpeed = 10f;
+    private Vector3 lastSideObjectPos = new Vector3(0,0,0);
 
     //private CollectibleSpawner cs;
 
@@ -18,7 +20,7 @@ public class GroundController : MonoBehaviour
 
         //Loading modules
         loadFrom = LoadPrefabs("Prefabs/Modulok");
-        sideObjects = LoadPrefabs("Models/World Objects/World 1");
+        sideObjects = LoadPrefabs("Prefabs/World Objects/World 1");
         Debug.Log("loadFrom length: " + loadFrom.Length);
         Debug.Log("sideObjects Length: " + sideObjects.Length);
 
@@ -42,6 +44,7 @@ public class GroundController : MonoBehaviour
         //uj ground letrehozas 
         if(ground[ground.Length-1].transform.position.z <= 120){
             CreateNewGround();
+            CreateNewSideObjects();
             
             ground = GameObject.FindGameObjectsWithTag("Ground");
 
@@ -77,6 +80,12 @@ public class GroundController : MonoBehaviour
         GameObject[] arr = Resources.LoadAll<GameObject>(path);
 
         return arr;
+    }
+
+    private void CreateNewSideObjects(){
+        int random = UnityEngine.Random.Range(0, sideObjects.Length);
+
+        Instantiate(sideObjects[random], lastSideObjectPos + new Vector3(0,0,20), ground[0].transform.rotation);
     }
 
     public void changeMaterialIndex(){
