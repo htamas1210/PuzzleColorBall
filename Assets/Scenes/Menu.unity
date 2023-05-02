@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.56158954, g: 0.7218083, b: 0.8178571, a: 1}
+  m_IndirectSpecularColor: {r: 0.5615895, g: 0.72180885, b: 0.81785697, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1704,6 +1704,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 645543792}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &645543795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1777,7 +1789,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -264.60254, y: 560.00006}
+  m_AnchoredPosition: {x: -291, y: 745}
   m_SizeDelta: {x: 431.1149, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &702512603
@@ -1912,7 +1924,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -227, y: 749.9}
+  m_AnchoredPosition: {x: -253.39745, y: 934.9001}
   m_SizeDelta: {x: 506.3254, y: 168.2041}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &788008818
@@ -1935,7 +1947,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Coins: 0'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1962,7 +1974,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
+  m_fontSize: 60
   m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3313,7 +3325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 7917514869596290073}
   jumpforce: 350
-  holdTime: 0.2
+  holdTime: 0.4
   activeControllType: 1
   leftButton: {fileID: 2129484388}
   jumpButton: {fileID: 284201300}
@@ -3925,7 +3937,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572233529}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3934,7 +3946,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300.03, y: 546}
+  m_AnchoredPosition: {x: 273.63257, y: 731.00006}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1572233531
@@ -4616,7 +4628,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 367.5, y: 750}
+  m_AnchoredPosition: {x: 341.10257, y: 935.00006}
   m_SizeDelta: {x: 265.0578, y: 168.0133}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1890329291
@@ -13963,6 +13975,7 @@ GameObject:
   - component: {fileID: 7917514869596290071}
   - component: {fileID: 7917514869596290073}
   - component: {fileID: 7917514869596290074}
+  - component: {fileID: 7917514869596290075}
   m_Layer: 0
   m_Name: Boby
   m_TagString: Player
@@ -14674,6 +14687,19 @@ CapsuleCollider:
   m_Height: 6.3698125
   m_Direction: 1
   m_Center: {x: -0.03604698, y: 3.18, z: -0.06167984}
+--- !u!114 &7917514869596290075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7398140401948337837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 434812251bf6e1f44a54fa63754df2af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrounded: 1
 --- !u!4 &7986884067029569574
 Transform:
   m_ObjectHideFlags: 0

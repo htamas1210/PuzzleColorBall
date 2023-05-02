@@ -1873,7 +1873,7 @@ GameObject:
   - component: {fileID: 8333322021456490412}
   m_Layer: 0
   m_Name: haz2
-  m_TagString: Untagged
+  m_TagString: SideObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

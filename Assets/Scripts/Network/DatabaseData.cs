@@ -21,12 +21,27 @@ public class DatabaseData : MonoBehaviour
 
     public ulong coins = 0;
 
+    private string url;
+    private bool forceLocalUrl = true;
+    private const int PORT = 24002;
+
     private void Awake() {
         hst = FindObjectOfType<HighScoreTable>(); //High Score Table referencia
         htdc = new HighScoreTableDataContainer(); //High Score Table Container objektum
         
         coinc = FindObjectOfType<CoinCounter>();
         //writer = new StreamWriter(Application.persistentDataPath + "/coins.txt", false, Encoding.Default);
+
+        if((Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.LinuxEditor || Application.platform == RuntimePlatform.OSXEditor) && forceLocalUrl){
+            //ha az editorba van
+            url = "http://localhost:"  + PORT.ToString();
+        }else if(!forceLocalUrl){
+            url = "nodejs.dszcbaross.edu.hu:" + PORT.ToString();
+        }else{
+            url = "nodejs.dszcbaross.edu.hu:" + PORT.ToString();
+        }
+
+        //url = "nodejs.dszcbaross.edu.hu:" + PORT.ToString();
     }
 
     private void Start() {
@@ -44,6 +59,7 @@ public class DatabaseData : MonoBehaviour
     }
 
     public void ParserCoin(string jsondata){
+        //Debug.Log("<color=orange>JsonDataCoin:" + jsondata + "</color>");
         string data = "";
         for (int i = 0; i < jsondata.Length; i++)
         {
@@ -51,8 +67,10 @@ public class DatabaseData : MonoBehaviour
                 data += jsondata[i]; //kiszedi a szamokat a stringbol
             }
         }
-        Debug.Log(data);
+        Debug.Log("data coin: " + data);
         coins = ulong.Parse(data);
+        Debug.Log("<color=orange>db coins: " + coins + "</color>");
+        coinc.SetCoin(coins);
     }
 
     //fuggvenyek amik meghivjak a rutint
@@ -62,14 +80,19 @@ public class DatabaseData : MonoBehaviour
     public void PostNewScoreData(int playerid, ulong score, string time) => StartCoroutine(IPostNewScoreData(playerid, score, time));
     public void PostNewPalyaData() => StartCoroutine(IPostNewPalyaData());
 
+    public void GetCoinDataCall(int userid) => StartCoroutine(GetCoinData(userid));
+    public void PostNewCoinData(ulong coins, int userid) => StartCoroutine(IPostNewCoinData(coins, userid));
+
     public ulong GetCoins(int userid){
         StartCoroutine(GetCoinData(userid));
+
+        Debug.Log("<color=orange> Return coin: " + coins + "</color>");
 
         return coins;
     }
 
     private IEnumerator GetCoinData(int userid){
-        string uri = "http://localhost:3000/coinget";
+        string uri = url + "/coinget";
 
         var uwr = new UnityWebRequest(uri, "GET");
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+userid+"}");
@@ -92,7 +115,7 @@ public class DatabaseData : MonoBehaviour
     private IEnumerator IGetPlayerData() {
         //input.text = "Loading..."; //ideiglenes szoveg amig nem jelenik meg az adat szoveg
 
-        string uri = "http://localhost:3000/player"; //backend vegpont linkje
+        string uri = url + "/player"; //backend vegpont linkje
 
         using (UnityWebRequest request = UnityWebRequest.Get(uri)) { //uj webrequest objektum letrehozasa, aminek megadjuk hogy ez egy get-es lekerdezes
             yield return request.SendWebRequest(); //amig be nem fejezodik az fv ide fog visszaterni
@@ -120,7 +143,7 @@ public class DatabaseData : MonoBehaviour
 
 
     private IEnumerator IGetCurretPlayer(int userid){
-        string uri = "http://localhost:3000/currentplayer";
+        string uri = url + "/currentplayer";
 
         var uwr = new UnityWebRequest(uri, "POST");
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+userid+"}"); //palya id megadasa
@@ -144,7 +167,7 @@ public class DatabaseData : MonoBehaviour
     }
 
     private IEnumerator IGetHighScoreData(){
-        string uri = "http://localhost:3000/toplist";
+        string uri = url + "/toplist";
 
         var uwr = new UnityWebRequest(uri, "GET");
         //byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+palya_id+"}"); //palya id megadasa
@@ -167,7 +190,7 @@ public class DatabaseData : MonoBehaviour
 
 
     private IEnumerator IGetHighScoreDataNew(){
-        string uri = "http://localhost:3000/toplist";
+        string uri = url + "/toplist";
 
         var uwr = new UnityWebRequest(uri, "GET");
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -188,7 +211,7 @@ public class DatabaseData : MonoBehaviour
 
 
     private IEnumerator IGetPlayerCoins(string username){
-        string uri = "http://localhost:3000/coinget";
+        string uri = url + "/coinget";
 
         var uwr = new UnityWebRequest(uri, "POST");
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+username+"}"); //palya id megadasa
@@ -211,7 +234,7 @@ public class DatabaseData : MonoBehaviour
     private IEnumerator IPostNewPlayerData() {
         //input.text = "loading...";
 
-        string uri = "http://localhost:3000/newplayer";
+        string uri = url + "/newplayer";
 
         var uwr = new UnityWebRequest(uri, "POST"); //post beallitasa
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{ \"bevitel1\":\"postusername\"}"); //felviteli json
@@ -232,7 +255,7 @@ public class DatabaseData : MonoBehaviour
     private IEnumerator IPostNewScoreData(int playerid, ulong score, string time) {
         //input.text = "loading...";
 
-        string uri = "http://localhost:3000/newscore";
+        string uri = url + "/newscore";
 
         //felhasznalonevet ki kell irni fajlba
         //ha username keresve lenne es ha nincs akkor kap egy uj id-t ami ideiglenesen tarolodik (ures string a visszateres?)
@@ -261,10 +284,29 @@ public class DatabaseData : MonoBehaviour
     private IEnumerator IPostNewPalyaData() {
         //input.text = "loading...";
 
-        string uri = "http://localhost:3000/newpalya";
+        string uri = url + "/newpalya";
 
         var uwr = new UnityWebRequest(uri, "POST");
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{ \"bevitel1\":\"Easy3\"}");
+        uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
+        uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        uwr.SetRequestHeader("Content-Type", "application/json");
+
+        yield return uwr.SendWebRequest();
+
+        if (uwr.isNetworkError) {
+            Debug.Log(uwr.error);
+        } else {
+            //input.text = uwr.downloadHandler.text;
+            Debug.Log(uwr.downloadHandler.text);
+        }
+    }
+
+        private IEnumerator IPostNewCoinData(ulong coins, int userid) {
+        string uri = url + "/coinUpdate";
+
+        var uwr = new UnityWebRequest(uri, "POST");
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+coins+",\"bevitel2\":"+userid+"}");
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         uwr.SetRequestHeader("Content-Type", "application/json");

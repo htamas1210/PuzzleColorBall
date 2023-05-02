@@ -20,7 +20,7 @@ public class GroundController : MonoBehaviour
 
         //Loading modules
         loadFrom = LoadPrefabs("Prefabs/Modulok");
-        sideObjects = LoadPrefabs("Prefabs/World Objects/World 1");
+        sideObjects = LoadPrefabs("Prefabs/WorldObjects/World1/");
         Debug.Log("loadFrom length: " + loadFrom.Length);
         Debug.Log("sideObjects Length: " + sideObjects.Length);
 
@@ -35,16 +35,27 @@ public class GroundController : MonoBehaviour
 
     private void Update() {
         ground = GameObject.FindGameObjectsWithTag("Ground"); //torles miatt ujra le kell kerni  a ground objecteket
-        OrderGroundArrayByZ(); //rendezzuk z szerint hogy sorba legyenek
+        sideObjectsSpawned = GameObject.FindGameObjectsWithTag("SideObject");
+
+        OrderArrayByZ(ground); //rendezzuk z szerint a talajt
+        OrderArrayByZ(sideObjectsSpawned);  
+
+        if(sideObjectsSpawned.Length > 0){
+            lastSideObjectPos = sideObjectsSpawned[sideObjectsSpawned.Length-1].transform.position;
+        }
 
         for (int i = 0; i < ground.Length; i++){ //ground objecteket mozgatja
             ground[i].transform.position = ground[i].transform.position + new Vector3(0,0, -groundMoveSpeed * Time.deltaTime);
-        }     
+        }  
+
+        for(int i = 0; i < sideObjectsSpawned.Length; i++){
+            sideObjectsSpawned[i].transform.position = sideObjectsSpawned[i].transform.position + new Vector3(0,0, -groundMoveSpeed * Time.deltaTime);
+        }   
 
         //uj ground letrehozas 
         if(ground[ground.Length-1].transform.position.z <= 120){
             CreateNewGround();
-            CreateNewSideObjects();
+            CreateNewSideObjects(false);
             
             ground = GameObject.FindGameObjectsWithTag("Ground");
 
@@ -82,10 +93,21 @@ public class GroundController : MonoBehaviour
         return arr;
     }
 
-    private void CreateNewSideObjects(){
+    private void CreateNewSideObjects(bool isLeftSide){
         int random = UnityEngine.Random.Range(0, sideObjects.Length);
 
-        Instantiate(sideObjects[random], lastSideObjectPos + new Vector3(0,0,20), ground[0].transform.rotation);
+        GameObject inst = sideObjects[random];
+        Vector3 pos = new Vector3(0,0,0);
+
+        if(inst.name == "haz1" && !isLeftSide){
+            pos = new Vector3(4,0,0); //check pos in editor TODO!!
+        }else if(inst.name == "haz2"){
+            pos = new Vector3(9,0,0);
+        }
+
+        if(isLeftSide) pos.x = -pos.x;
+
+        Instantiate(inst, lastSideObjectPos + pos, ground[0].transform.rotation);
     }
 
     public void changeMaterialIndex(){
@@ -102,14 +124,14 @@ public class GroundController : MonoBehaviour
         return false; //nem torolheto
     }
 
-    private void OrderGroundArrayByZ(){
+    private void OrderArrayByZ(GameObject[] array){
         GameObject csere;
-        for (int i = 0; i < ground.Length; i++){
+        for (int i = 0; i < array.Length; i++){
             for(int j = 0; j < i; j++){
-                if(ground[j].transform.position.z > ground[j+1].transform.position.z){
-                    csere = ground[j];
-                    ground[j] = ground[j+1];
-                    ground[j+1] = csere;
+                if(array[j].transform.position.z > array[j+1].transform.position.z){
+                    csere = array[j];
+                    array[j] = array[j+1];
+                    array[j+1] = csere;
                 }
             }
         }

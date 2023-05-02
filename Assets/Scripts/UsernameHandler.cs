@@ -19,11 +19,13 @@ public class UsernameHandler : MonoBehaviour
     private StreamReader reader;
     private DatabaseData db;
     private PlayerList playerList;
+    private CoinCounter cc;
 
     private void Awake() {
         input.gameObject.SetActive(false);
         inputBackground.SetActive(false); 
         path = Application.persistentDataPath + "/username.txt";
+        cc = FindObjectOfType<CoinCounter>();
         db = FindObjectOfType<DatabaseData>(); 
         db.GetPlayerData(); 
     }
@@ -54,6 +56,8 @@ public class UsernameHandler : MonoBehaviour
                 userid = item.player_id;
             }
         }  
+
+        db.GetCoinDataCall(userid);       
     }
 
     private void usernameCheck(){
@@ -85,12 +89,23 @@ public class UsernameHandler : MonoBehaviour
                 username = data;
                 Debug.Log("username: " + username);         
 
-                 getId();
+                getId();
+              
+                //StartCoroutine(waitForCoins());
+                
+                
 
                 input.gameObject.SetActive(false);
                 inputBackground.SetActive(false);
                 usernameInputCanvas.gameObject.SetActive(false);                              
             }
         }
+    }
+
+    private IEnumerator waitForCoins(){
+        yield return new WaitUntil(() => db.coins != 0);
+
+        cc.SetCoin(db.GetCoins(userid));
+        Debug.Log("uh coin"+cc.coin);
     }
 }
