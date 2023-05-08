@@ -26,16 +26,16 @@ public class DatabaseData : MonoBehaviour
     private const int PORT = 24002;
 
     #if UNITY_EDITOR || UNITY_EDITOR_64
-        private string url = "http://localhost:"  + PORT.ToString();
+        private string url = "localhost:"  + PORT.ToString();
     #else
-        private string url = "http://nodejs.dszcbaross.edu.hu:" + PORT.ToString();
+        private string url = "nodejs.dszcbaross.edu.hu:" + PORT.ToString();
     #endif
 
     private void Awake() {
         hst = FindObjectOfType<HighScoreTable>(); //High Score Table referencia
-        htdc = new HighScoreTableDataContainer(); //High Score Table Container objektum
-        
+        htdc = new HighScoreTableDataContainer(); //High Score Table Container objektum   
         coinc = FindObjectOfType<CoinCounter>();
+
         //writer = new StreamWriter(Application.persistentDataPath + "/coins.txt", false, Encoding.Default);
 
         /*if((Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.LinuxEditor || Application.platform == RuntimePlatform.OSXEditor) && forceLocalUrl){
@@ -47,7 +47,8 @@ public class DatabaseData : MonoBehaviour
             url = "nodejs.dszcbaross.edu.hu:" + PORT.ToString();
         }*/
 
-        url = "http://nodejs.dszcbaross.edu.hu:" + PORT.ToString();
+        url = "nodejs.dszcbaross.edu.hu:" + PORT.ToString();
+        Debug.Log("<color=pink>url: </color>" + url);
     }
 
     private void Start() {
