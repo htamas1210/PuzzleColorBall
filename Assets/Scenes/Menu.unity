@@ -2758,7 +2758,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 936985375}
-  m_LocalRotation: {x: 0.27190503, y: 0.6479811, z: -0.26720154, w: 0.65938723}
+  m_LocalRotation: {x: 0.271905, y: 0.64798117, z: -0.26720163, w: 0.6593872}
   m_LocalPosition: {x: 4.644, y: 3.69, z: -1.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4097,7 +4097,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1615993234}
-  m_LocalRotation: {x: 0.0010953929, y: 0.9979507, z: -0.061456818, w: 0.017787255}
+  m_LocalRotation: {x: 0.0010953955, y: 0.9979507, z: -0.061456837, w: 0.017787289}
   m_LocalPosition: {x: -0.435591, y: 4.16525, z: 13.428191}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4743,7 +4743,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.1550819, g: 0.24519156, b: 0.38679248, a: 0}
+  m_BackGroundColor: {r: 0.15686275, g: 0.29054102, b: 0.3882353, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4783,7 +4783,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895677325}
-  m_LocalRotation: {x: 0.0010953929, y: 0.9979507, z: -0.061456818, w: 0.017787255}
+  m_LocalRotation: {x: 0.0010953955, y: 0.9979507, z: -0.061456837, w: 0.017787289}
   m_LocalPosition: {x: -0.15911984, y: 2.9687777, z: -12.856641}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14650,7 +14650,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -14664,7 +14664,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 7398140401948337837}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 1.7212968
   m_Height: 6.3698125
   m_Direction: 1

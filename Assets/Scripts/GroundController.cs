@@ -81,6 +81,23 @@ public class GroundController : MonoBehaviour
 
     public void changeMaterialIndex(){
         
+        int materialteszt = UnityEngine.Random.Range(0, materials.Length);
+        Debug.Log(materialteszt);
+        bool teszteljtovabb = true;
+
+        while (teszteljtovabb == true)
+        {
+            if (materialteszt == materialIndex)
+            {
+
+            }
+            else
+            {
+                materialIndex = materialteszt;
+                teszteljtovabb = false;
+            }
+        }
+        
     }
 
     private bool CheckGroundToDestroy(GameObject toCheck){
