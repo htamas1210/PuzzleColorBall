@@ -11,7 +11,7 @@ TagManager:
   - Obstacle
   - Collectible
   - DeathCollider
-  - SideObject
+  - Portal
   layers:
   - Default
   - TransparentFX
