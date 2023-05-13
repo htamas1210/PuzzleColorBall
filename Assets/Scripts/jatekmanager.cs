@@ -34,6 +34,7 @@ public class jatekmanager : MonoBehaviour
     private UsernameHandler usernameHandler;
     private Score score;
     private Timer timer;
+    private CoinCounter cc;
 
     private void Awake()
     {
@@ -44,6 +45,7 @@ public class jatekmanager : MonoBehaviour
         usernameHandler = FindObjectOfType<UsernameHandler>();
         score = FindObjectOfType<Score>();
         timer = FindObjectOfType<Timer>();
+        cc = FindObjectOfType<CoinCounter>();
     }
 
     private void Start()
@@ -156,6 +158,7 @@ public class jatekmanager : MonoBehaviour
         homeGomb.SetActive(false);
         settingsGomb.SetActive(false);
         shopGomb.SetActive(false);
+        playButton.SetActive(false);
         UpdateGameState(GameState.Game);
     }
 
@@ -167,15 +170,18 @@ public class jatekmanager : MonoBehaviour
 
     private async void HandleGame()
     {
-        playButton.SetActive(false);
         StartCoroutine(TimerGame());
+        
         GetComponent <GroundController> ().enabled = true;
         GetComponent <PlayerController>().enabled = true;
+
         goLeftButton.SetActive(true);
         jumpButton.SetActive(true);
         goRightButton.SetActive(true);
         scoreText.gameObject.SetActive(true);
         timerText.gameObject.SetActive(true);
+        playButton.SetActive(false);
+
         timer.playTime.Start();
     }
 
@@ -193,9 +199,11 @@ public class jatekmanager : MonoBehaviour
         //toltse fel az adatokat a run-rol
         db.PostNewScoreData(usernameHandler.userid, score.score, timer.convertTimeToString());
 
+        //coin feltoltes
+        db.PostNewCoinData(cc.coin, usernameHandler.userid);
+
         SceneUIManager.LoadScene(1); //HighScore scene
 
-        //
 
         /*playButton.SetActive(false);
         homeGomb.SetActive(true);
