@@ -1009,6 +1009,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: -1950733119399844177, guid: 97320e10a4ea94a5085e5bf6fd4a2921, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 17.59
+      objectReference: {fileID: 0}
+    - target: {fileID: -1950733119399844177, guid: 97320e10a4ea94a5085e5bf6fd4a2921, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.4
+      objectReference: {fileID: 0}
     - target: {fileID: -1891630423312683343, guid: 97320e10a4ea94a5085e5bf6fd4a2921, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -1389,7 +1397,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 601898925}
-  m_LocalRotation: {x: 0.045581326, y: -0.70516795, z: 0.045520645, w: 0.7061079}
+  m_LocalRotation: {x: 0.045581307, y: -0.70516795, z: 0.045520626, w: 0.7061079}
   m_LocalPosition: {x: 2.27, y: 4.16525, z: 3.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4762,7 +4770,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
+  m_FocalLength: 17.137775
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -14668,7 +14676,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -14682,7 +14690,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 7398140401948337837}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 1.7212968
   m_Height: 6.3698125
   m_Direction: 1
