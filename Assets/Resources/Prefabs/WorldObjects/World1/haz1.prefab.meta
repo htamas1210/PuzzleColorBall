@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Resources/Models/Map objects/module3.mat.meta
-guid: a165a068343ef47108ec4332d0bdc767
-NativeFormatImporter:
+<<<<<<<< HEAD:Assets/Resources/Prefabs/WorldObjects/World1/haz2.prefab.meta
+guid: 8500f6075c56d47809b2a1e2dfb10d39
 ========
 guid: 801674bb4f54353d3966591ac2876a92
-PrefabImporter:
 >>>>>>>> master:Assets/Resources/Prefabs/WorldObjects/World1/haz1.prefab.meta
+PrefabImporter:
   externalObjects: {}
-  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
