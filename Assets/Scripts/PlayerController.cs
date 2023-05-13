@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody rb; //jatekos teste
     private CameraController cc;
+    private IsGrounded isGrounded;
+
     public float jumpforce = 5f; //mekkorat tudjon ugorni
     private float sideMovement = 3f; //oldalra mennyit mozogjon
     private Vector3 direction; //jatkos pozicio
@@ -17,13 +19,13 @@ public class PlayerController : MonoBehaviour
     private Vector2 startTouchPosition; //erintes kezdo pozicio
     private Vector2 endTouchPosition; //erintes vegpozicio
 
-    public ControllType activeControllType; //ezt kell atallitani hogy swipe-os vagy button-os legyen a mozgas
+    public ControlType activeControllType; //ezt kell atallitani hogy swipe-os vagy button-os legyen a mozgas
 
     public Button leftButton;
     public Button jumpButton;
     public Button rightButton;
 
-    public enum ControllType
+    public enum ControlType
     {
         Swipe,
         Button
@@ -31,16 +33,18 @@ public class PlayerController : MonoBehaviour
 
     private void Awake() {
         cc = FindObjectOfType<CameraController>(); //kamera vezerlo referencia
-        activeControllType = ControllType.Button;
+        isGrounded = FindObjectOfType<IsGrounded>();
+        
+        //activeControllType = ControlType.Button;
     }
 
-    public void setControllType(ControllType controlltype){
+    public void setControllType(ControlType controlltype){
         activeControllType = controlltype;
     }
 
     private void Update(){
         
-        if(activeControllType == ControllType.Swipe){  
+        if(activeControllType == ControlType.Swipe){  
             leftButton.gameObject.SetActive(false);        
             jumpButton.gameObject.SetActive(false);        
             rightButton.gameObject.SetActive(false);
@@ -59,7 +63,7 @@ public class PlayerController : MonoBehaviour
                     timeSinceLastTap = 0f;
                 }
 
-                if(isTapped && rb.transform.position.y <= 0.16f){
+                if(isTapped && isGrounded.isGrounded){
                     if(Time.time - timeSinceLastTap >= holdTime){ //ha nyomva tartotta a beallitott ideig
                         Debug.Log("Long tapped");
                         jump();
@@ -84,7 +88,7 @@ public class PlayerController : MonoBehaviour
                     goRight();
                 }
             }
-        }else if(activeControllType == ControllType.Button){
+        }else if(activeControllType == ControlType.Button){
             //jumpforce = 100;
             /*leftButton.onClick.AddListener(goRight);
             jumpButton.onClick.AddListener(jump);
@@ -119,9 +123,13 @@ public class PlayerController : MonoBehaviour
     }
 
     public void jump(){
-        if(rb.transform.position.y <= 0.16f)
+        if(isGrounded.isGrounded){
             rb.AddForce(new Vector3(0, jumpforce, 0)); //ugras
-        
+            isGrounded.isGrounded = false;
+        }
+  
         Debug.Log("jumped");
     }
+
+
 }
