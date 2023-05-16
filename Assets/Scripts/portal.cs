@@ -13,7 +13,9 @@ public class portal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        gc.changeMaterialIndex();
+        if(other.gameObject.tag.Equals("Player")){
+            gc.changeMaterialIndex();
+        }
     }
 
 }
