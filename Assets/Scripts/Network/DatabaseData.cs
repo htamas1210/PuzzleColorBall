@@ -13,12 +13,9 @@ public class DatabaseData : MonoBehaviour
     public PlayerList players; //jatekos adatok
     public HighScoreTableDataContainer htdc; //itt van a tomb
     public HighScoreTable hst; //high score table ui
-
-    private StreamWriter writer;
-    public string jsondata; //json szoveg
-
     private CoinCounter coinc;
 
+    public string jsondata; //json szoveg
     public ulong coins = 0;
 
     
@@ -47,7 +44,7 @@ public class DatabaseData : MonoBehaviour
             url = "nodejs.dszcbaross.edu.hu:" + PORT.ToString();
         }*/
 
-        url = "nodejs.dszcbaross.edu.hu:" + PORT.ToString();
+        //url = "nodejs.dszcbaross.edu.hu:" + PORT.ToString();
         Debug.Log("<color=pink>url: </color>" + url);
     }
 

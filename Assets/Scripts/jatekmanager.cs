@@ -16,7 +16,7 @@ public class jatekmanager : MonoBehaviour
     public static event Action<GameState> OnGameStateChanged;
 
     //gameobjectek,gombok,scriptek
-    public GameObject playButton;
+    public GameObject playGomb;
     public GameObject garazs;
     public GameObject homeGomb;
     public GameObject settingsGomb;
@@ -96,6 +96,7 @@ public class jatekmanager : MonoBehaviour
         homeGomb.SetActive(true);
         settingsGomb.SetActive(true);
         shopGomb.SetActive(true);
+        
         goLeftButton.SetActive(false);
         jumpButton.SetActive(false);
         goRightButton.SetActive(false);
@@ -107,6 +108,7 @@ public class jatekmanager : MonoBehaviour
     { 
         //deactivate buttons
         StartCoroutine(TimerHome());
+        playGomb.SetActive(true);
         GetComponent<GroundController>().enabled = false;
         GetComponent<PlayerController>().enabled = false;
         goLeftButton.SetActive(false);
@@ -120,32 +122,36 @@ public class jatekmanager : MonoBehaviour
     IEnumerator TimerHome()
     {
         yield return new WaitForSecondsRealtime(2);
-        playButton.SetActive(true);
+        
+        
     }
 
     public void ChangeToSettings()
     {
         UpdateGameState(GameState.Settings);
+        playGomb.SetActive(false);
     }
 
     private async void HandleSettings()
     {
-        playButton.SetActive(false);
+        playGomb.SetActive(false);
         goLeftButton.SetActive(false);
         jumpButton.SetActive(false);
         goRightButton.SetActive(false);
         scoreText.gameObject.SetActive(false);
         timerText.gameObject.SetActive(false);
+        playGomb.SetActive(false);
     }
 
     public void ChangeToShop()
     {
         UpdateGameState(GameState.Shop);
+        
     }
 
     private async void HandleShop()
     {
-        playButton.SetActive(false);
+        playGomb.SetActive(false);
         goLeftButton.SetActive(false);
         jumpButton.SetActive(false);
         goRightButton.SetActive(false);
@@ -158,31 +164,37 @@ public class jatekmanager : MonoBehaviour
         homeGomb.SetActive(false);
         settingsGomb.SetActive(false);
         shopGomb.SetActive(false);
-        playButton.SetActive(false);
+        playGomb.SetActive(false);
         UpdateGameState(GameState.Game);
+        
     }
 
     IEnumerator TimerGame()
     {
         yield return new WaitForSecondsRealtime(1);
         garazs.SetActive(false);
+
+
     }
 
     private async void HandleGame()
     {
         StartCoroutine(TimerGame());
-        
+
+
         GetComponent <GroundController> ().enabled = true;
         GetComponent <PlayerController>().enabled = true;
 
+        
         goLeftButton.SetActive(true);
         jumpButton.SetActive(true);
         goRightButton.SetActive(true);
         scoreText.gameObject.SetActive(true);
-        timerText.gameObject.SetActive(true);
-        playButton.SetActive(false);
+        timerText.gameObject.SetActive(true);;
+
 
         timer.playTime.Start();
+
     }
 
     public void ChangeToMeghaltal()
@@ -205,7 +217,7 @@ public class jatekmanager : MonoBehaviour
         SceneUIManager.LoadScene(1); //HighScore scene
 
 
-        /*playButton.SetActive(false);
+        /*
         homeGomb.SetActive(true);
         GetComponent<GroundController>().enabled = false;
         GetComponent<PlayerController>().enabled = false;

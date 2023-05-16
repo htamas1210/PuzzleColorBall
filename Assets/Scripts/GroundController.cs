@@ -12,6 +12,10 @@ public class GroundController : MonoBehaviour
     public int materialIndex = 0;
     public float groundMoveSpeed = 10f;
     private Vector3 lastSideObjectPos = new Vector3(0, 0, 0);
+    [SerializeField] GameObject portalModul;
+
+    [SerializeField] private int groundCounter = 0;
+    [SerializeField] private int portalSpawnNumber = 15; //ennyi modulonkent spawnoljon portalt
 
     //private CollectibleSpawner cs;
 
@@ -51,8 +55,7 @@ public class GroundController : MonoBehaviour
         OrderArrayByZ(sideObjectsSpawned);
 
         for (int i = 0; i < ground.Length; i++)
-        { //ground objecteket mozgatja
-            //ground[i].transform.position = ground[i].transform.position + new Vector3(0,0, -groundMoveSpeed * Time.deltaTime);
+        {   //ground objecteket mozgatja
             Move(ground[i]);
         }
 
@@ -62,26 +65,26 @@ public class GroundController : MonoBehaviour
             Move(sideObjectsSpawned[i]);
         }
 
+        if (sideObjectsSpawned[sideObjectsSpawned.Length - 1].transform.position.z < 145)
+        {
+            CreateNewSideObjects(false);
+            CreateNewSideObjects(true);
+        }
+
         //uj ground letrehozas 
         if (ground[ground.Length - 1].transform.position.z <= 120)
         {
-            CreateNewGround();
-
-            for (int k = 0; k < 3; k++)
-            {
-                CreateNewSideObjects(false);
-                CreateNewSideObjects(true);
+            if(groundCounter == portalSpawnNumber){
+                CreateNewGround(true);
+                groundCounter = 0; //ne menjen a vegtelensegig a counter
+            }else{
+                CreateNewGround();
             }
 
             ground = GameObject.FindGameObjectsWithTag("Ground");
 
             for (int i = 0; i < ground.Length; i++)
             {
-                /*foreach (GameObject child in ground[i].transform){
-                    if (child.name == "Lane1" || child.name == "Lane2" || child.name == "Lane3"){
-                        Debug.Log(child.name + " " + transform.gameObject.name);
-                    }
-                }*/
                 Transform[] lanes = new Transform[3];
                 lanes[0] = ground[i].transform.Find("Lane1");
                 lanes[1] = ground[i].transform.Find("Lane2");
@@ -93,13 +96,6 @@ public class GroundController : MonoBehaviour
                 }
             }
         }
-
-        //ellenorzi hogy torolheto e az object || mar nem szukseges mert van egy trigger box
-        /*foreach (var item in ground){
-            if(CheckGroundToDestroy(item)){
-                Destroy(item);
-            }
-        }*/
 
         //cs.SpawnCoin();
     }
@@ -119,41 +115,46 @@ public class GroundController : MonoBehaviour
         {
             if (item.transform.position.x < 0 && isLeftSide)
             {
-                side.Add(item); //ball oldal
+                side.Add(item); //bal oldal
             }
-            else
+            else if (item.transform.position.x > 0 && !isLeftSide)
             {
                 side.Add(item); //jobb oldal
             }
         }
 
-        int random = UnityEngine.Random.Range(0, sideObjects.Length);
-        random = 0; //csak debug
+        int random = UnityEngine.Random.Range(0, sideObjects.Length); //random sorsolasa a modulhoz
+        //random = 0; //csak debug
 
-        GameObject inst = sideObjects[random];
+        GameObject inst = sideObjects[random]; //random modul object eltarolas
 
         //remake to get width
-        Vector3 offset = new Vector3(0, 0, 10f);
+        Vector3 offset = new Vector3(0, 0, 0);
 
-        if (sideObjectsSpawned.Length > 0)
+        if (side.Count > 0)
         {
-            if (sideObjectsSpawned[sideObjectsSpawned.Length - 1].gameObject.name.Contains("haz1")) //haz1Clone
-                offset = new Vector3(0, 0, 10f); //TODO adjust
-            else if (sideObjectsSpawned[sideObjectsSpawned.Length - 1].gameObject.name.Contains("haz2"))
+            if (side[side.Count - 1].gameObject.name.Contains("haz1")) //haz1Clone
+                offset = new Vector3(0, 0, 15f); //TODO adjust
+            else if (side[side.Count - 1].gameObject.name.Contains("haz2"))
                 offset = new Vector3(0, 0, 20f); //TODO adjust
         }
         //
 
-        Vector3 pos = new Vector3(9f, 0, 0);
+        Vector3 pos = new Vector3(9f, -5f, -10f);
+        Quaternion rotation = inst.transform.rotation;
 
-        if (sideObjectsSpawned.Length > 0)
-            pos = sideObjectsSpawned[sideObjectsSpawned.Length - 1].transform.position + offset;
+        if (side.Count > 0)
+            //pos = sideObjectsSpawned[sideObjectsSpawned.Length - 1].transform.position + offset;
+            pos = side[side.Count - 1].transform.position + offset;
         else
             pos = pos + offset;
 
-        if (isLeftSide) pos.x = -pos.x;
 
-        Instantiate(inst, pos, inst.transform.rotation);
+        if (isLeftSide && pos.x > 0) //x negativ hogy a bal oldalra keruljon
+            pos.x = -pos.x;
+        
+
+        Instantiate(inst, pos, rotation);
 
         sideObjectsSpawned = GameObject.FindGameObjectsWithTag("SideObject");
         OrderArrayByZ(sideObjectsSpawned);
@@ -164,10 +165,11 @@ public class GroundController : MonoBehaviour
         int materialteszt;
         bool teszteljtovabb = true;
 
-        while (teszteljtovabb == true)
+        while (teszteljtovabb)
         {
             materialteszt = UnityEngine.Random.Range(0, materials.Length);
             Debug.Log(materialteszt);
+
             if (materialteszt == materialIndex)
             {
 
@@ -211,10 +213,20 @@ public class GroundController : MonoBehaviour
         }
     }
 
-    private void CreateNewGround()
+    private void CreateNewGround(bool portalModulSpawn = false)
     {
         int random = UnityEngine.Random.Range(0, loadFrom.Length);
+
+        GameObject inst;
+
+        if(!portalModulSpawn)
+            inst = loadFrom[random];
+        else
+            inst = portalModul;
+            
+            
         //egy modullal elobb tolt be, annak az iranyanak megfeleloen, +80 a ket modul hossza
-        Instantiate(loadFrom[random], new Vector3(0, 0, ground[ground.Length - 1].transform.position.z + 40), ground[ground.Length - 1].transform.rotation);
+        Instantiate(inst, new Vector3(0, 0, ground[ground.Length - 1].transform.position.z + 40), ground[ground.Length - 1].transform.rotation);
+        groundCounter++;
     }
 }
