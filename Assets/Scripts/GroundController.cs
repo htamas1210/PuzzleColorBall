@@ -226,7 +226,7 @@ public class GroundController : MonoBehaviour
             
             
         //egy modullal elobb tolt be, annak az iranyanak megfeleloen, +80 a ket modul hossza
-        Instantiate(inst, new Vector3(0, 0, ground[ground.Length - 1].transform.position.z + 40), ground[ground.Length - 1].transform.rotation);
+        Instantiate(inst, new Vector3(ground[ground.Length - 1].transform.position.x, ground[ground.Length - 1].transform.position.y, ground[ground.Length - 1].transform.position.z + 40), ground[ground.Length - 1].transform.rotation);
         groundCounter++;
     }
 }

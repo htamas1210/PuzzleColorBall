@@ -26,6 +26,8 @@ public class jatekmanager : MonoBehaviour
     public GameObject jumpButton;
     public GameObject goRightButton;
 
+    public GameObject boby;
+
     public TMP_Text scoreText;
     public TMP_Text timerText;
 
@@ -181,6 +183,7 @@ public class jatekmanager : MonoBehaviour
     {
         StartCoroutine(TimerGame());
 
+        boby.transform.position = new Vector3(0, boby.transform.position.y, boby.transform.position.z);
 
         GetComponent <GroundController> ().enabled = true;
         GetComponent <PlayerController>().enabled = true;
@@ -212,7 +215,7 @@ public class jatekmanager : MonoBehaviour
         db.PostNewScoreData(usernameHandler.userid, score.score, timer.convertTimeToString());
 
         //coin feltoltes
-        db.PostNewCoinData(cc.coin, usernameHandler.userid);
+        db.PostUpdateCoinData(cc.coin, usernameHandler.userid);
 
         SceneUIManager.LoadScene(1); //HighScore scene
 

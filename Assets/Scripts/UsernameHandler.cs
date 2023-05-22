@@ -24,9 +24,12 @@ public class UsernameHandler : MonoBehaviour
     private void Awake() {
         input.gameObject.SetActive(false);
         inputBackground.SetActive(false); 
+
         path = Application.persistentDataPath + "/username.txt";
+
         cc = FindObjectOfType<CoinCounter>();
-        db = FindObjectOfType<DatabaseData>(); 
+        db = FindObjectOfType<DatabaseData>();
+
         db.GetPlayerData(); 
     }
 
@@ -35,9 +38,12 @@ public class UsernameHandler : MonoBehaviour
     }
     
 
-    public void ReadUsername(string username){ //kiirja az inputbol kapott usernevet fajlba
+
+    public void CallReadUsername(string username) => StartCoroutine(ReadUsername(username));
+
+    private IEnumerator ReadUsername(string username){ //kiirja az inputbol kapott usernevet fajlba
         this.username = username;
-        Debug.Log(this.username);
+        Debug.Log("username" + this.username);
 
         writer = new StreamWriter(path, false, Encoding.Default);
         writer.Write(username);
@@ -47,15 +53,32 @@ public class UsernameHandler : MonoBehaviour
         inputBackground.SetActive(false);  
         usernameInputCanvas.gameObject.SetActive(false);
 
-        getId();
+        db.PostNewPlayerData(username); //nincs meg ilyen username az adatbazisba ezert vigye fel uj kent 
+
+        Debug.Log("<color=red>uwr before:</color>" + db.GetUnityWebRequest().downloadHandler.text);
+        yield return new WaitUntil(() => db.GetUnityWebRequest().downloadHandler.text.Equals("Uj username!"));
+        Debug.Log("<color=red>uwr after:</color>" + db.GetUnityWebRequest().downloadHandler.text); 
+
+
+        //eltarol playerek frissitese
+        db.players.player = null;
+        db.GetPlayerData();
+        yield return new WaitUntil(() => db.players.player != null); //varjon amig lekeri az adatokat
+
+        getId(true);
     }   
 
-    private void getId(){
+    private void getId(bool newuser){
         foreach(var item in db.players.player){
             if(item.player_name.Equals(username)){
                 userid = item.player_id;
+                break;
             }
         }  
+
+        if(newuser){
+            db.PostNewCoinData(0, userid); //ne uressel terjen vissza
+        }
 
         db.GetCoinDataCall(userid);       
     }
@@ -89,7 +112,7 @@ public class UsernameHandler : MonoBehaviour
                 username = data;
                 Debug.Log("username: " + username);         
 
-                getId();
+                getId(false);
               
                 //StartCoroutine(waitForCoins());
                 

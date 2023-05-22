@@ -18,6 +18,7 @@ public class DatabaseData : MonoBehaviour
     public string jsondata; //json szoveg
     public ulong coins = 0;
 
+    private UnityWebRequest uwr;
     
     private bool forceLocalUrl = true;
     private const int PORT = 24002;
@@ -27,6 +28,8 @@ public class DatabaseData : MonoBehaviour
     #else
         private string url = "nodejs.dszcbaross.edu.hu:" + PORT.ToString();
     #endif
+
+    public UnityWebRequest GetUnityWebRequest(){ return uwr; }
 
     private void Awake() {
         hst = FindObjectOfType<HighScoreTable>(); //High Score Table referencia
@@ -79,11 +82,12 @@ public class DatabaseData : MonoBehaviour
     //fuggvenyek amik meghivjak a rutint
     public void GetPlayerData() => StartCoroutine(IGetPlayerData());
     public void GetHighScoreData() => StartCoroutine(IGetHighScoreData());
-    public void PostNewPlayerData() => StartCoroutine(IPostNewPlayerData());
+    public void PostNewPlayerData(string postusername) => StartCoroutine(IPostNewPlayerData(postusername));
     public void PostNewScoreData(int playerid, ulong score, string time) => StartCoroutine(IPostNewScoreData(playerid, score, time));
     public void PostNewPalyaData() => StartCoroutine(IPostNewPalyaData());
 
     public void GetCoinDataCall(int userid) => StartCoroutine(GetCoinData(userid));
+    public void PostUpdateCoinData(ulong coins, int userid) => StartCoroutine(IPostUpdateCoinData(coins, userid));
     public void PostNewCoinData(ulong coins, int userid) => StartCoroutine(IPostNewCoinData(coins, userid));
 
     public ulong GetCoins(int userid){
@@ -97,7 +101,7 @@ public class DatabaseData : MonoBehaviour
     private IEnumerator GetCoinData(int userid){
         string uri = url + "/coinget";
 
-        var uwr = new UnityWebRequest(uri, "GET");
+        uwr = new UnityWebRequest(uri, "GET");
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+userid+"}");
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend); 
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -134,11 +138,11 @@ public class DatabaseData : MonoBehaviour
                 }
 
                 //input.text = "";
-                foreach(var p in players.player) {
+                /*foreach(var p in players.player) {
                     p.ConvertDate();
                     //adatok kiirasa kepernyore
                     //input.text += "p_id: " + p.player_id + " username: " + p.player_name + " join date: " + p.joindate.printDate() + "\n";
-                }
+                }*/
             }
         }
     }
@@ -148,7 +152,7 @@ public class DatabaseData : MonoBehaviour
     private IEnumerator IGetCurretPlayer(int userid){
         string uri = url + "/currentplayer";
 
-        var uwr = new UnityWebRequest(uri, "POST");
+        uwr = new UnityWebRequest(uri, "POST");
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+userid+"}"); //palya id megadasa
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend); //felkuldi a palya id-t
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -172,7 +176,7 @@ public class DatabaseData : MonoBehaviour
     private IEnumerator IGetHighScoreData(){
         string uri = url + "/toplist";
 
-        var uwr = new UnityWebRequest(uri, "GET");
+        uwr = new UnityWebRequest(uri, "GET");
         //byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+palya_id+"}"); //palya id megadasa
         //uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend); //felkuldi a palya id-t
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -195,7 +199,7 @@ public class DatabaseData : MonoBehaviour
     private IEnumerator IGetHighScoreDataNew(){
         string uri = url + "/toplist";
 
-        var uwr = new UnityWebRequest(uri, "GET");
+        uwr = new UnityWebRequest(uri, "GET");
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         uwr.SetRequestHeader("Content-Type", "application/json");
 
@@ -216,7 +220,7 @@ public class DatabaseData : MonoBehaviour
     private IEnumerator IGetPlayerCoins(string username){
         string uri = url + "/coinget";
 
-        var uwr = new UnityWebRequest(uri, "POST");
+        uwr = new UnityWebRequest(uri, "POST");
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+username+"}"); //palya id megadasa
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend); //felkuldi a palya id-t
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -234,13 +238,13 @@ public class DatabaseData : MonoBehaviour
 
 
 
-    private IEnumerator IPostNewPlayerData() {
+    private IEnumerator IPostNewPlayerData(string postusername) {
         //input.text = "loading...";
 
         string uri = url + "/newplayer";
 
-        var uwr = new UnityWebRequest(uri, "POST"); //post beallitasa
-        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{ \"bevitel1\":\"postusername\"}"); //felviteli json
+        uwr = new UnityWebRequest(uri, "POST"); //post beallitasa
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":\""+postusername+"\"}"); //felviteli json
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         uwr.SetRequestHeader("Content-Type", "application/json");
@@ -251,7 +255,27 @@ public class DatabaseData : MonoBehaviour
             Debug.Log(uwr.error);
         } else {
             //input.text = uwr.downloadHandler.text; //vissza erzkezes arrol hogy sikeres a felvitel vagy nem
-            Debug.Log(uwr.downloadHandler.text);           
+            Debug.Log(uwr.downloadHandler.text);     
+
+            //hozzon letre uj coin adatot hogy a coinba ne ures adattal terjen vissza    
+        }
+    }
+
+        private IEnumerator IPostNewCoinData(ulong coins, int userid) {
+        string uri = url + "/newcoin";
+
+        uwr = new UnityWebRequest(uri, "POST"); //post beallitasa
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+userid+",\"bevitel2\":"+coins+"}"); //felviteli json
+        uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
+        uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        uwr.SetRequestHeader("Content-Type", "application/json");
+
+        yield return uwr.SendWebRequest();
+
+        if (uwr.isNetworkError) {
+            Debug.Log(uwr.error);
+        } else {
+              Debug.Log(uwr.downloadHandler.text);       
         }
     }
 
@@ -265,7 +289,7 @@ public class DatabaseData : MonoBehaviour
         //ha van akkor akkor lekeri az id-t es ideiglenesen tarolja
 
 
-        var uwr = new UnityWebRequest(uri, "POST");
+        uwr = new UnityWebRequest(uri, "POST");
         byte[] jsonToSend = 
         new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+playerid+",\"bevitel2\":"+score+",\"bevitel3\":\""+time+"\"}");
         //playerid, points, time
@@ -289,7 +313,7 @@ public class DatabaseData : MonoBehaviour
 
         string uri = url + "/newpalya";
 
-        var uwr = new UnityWebRequest(uri, "POST");
+        uwr = new UnityWebRequest(uri, "POST");
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{ \"bevitel1\":\"Easy3\"}");
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -305,10 +329,10 @@ public class DatabaseData : MonoBehaviour
         }
     }
 
-        private IEnumerator IPostNewCoinData(ulong coins, int userid) {
+        private IEnumerator IPostUpdateCoinData(ulong coins, int userid) {
         string uri = url + "/coinUpdate";
 
-        var uwr = new UnityWebRequest(uri, "POST");
+        uwr = new UnityWebRequest(uri, "POST");
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes("{\"bevitel1\":"+coins+",\"bevitel2\":"+userid+"}");
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
