@@ -21,6 +21,9 @@ public class jatekmanager : MonoBehaviour
     public GameObject homeGomb;
     public GameObject settingsGomb;
     public GameObject shopGomb;
+    public GameObject volumeSlide;
+    public GameObject musicSlide;
+    public GameObject sfxSlide;
 
     public GameObject goLeftButton;
     public GameObject jumpButton;
@@ -117,6 +120,9 @@ public class jatekmanager : MonoBehaviour
         scoreText.gameObject.SetActive(false);
         timerText.gameObject.SetActive(false);
         garazs.SetActive(true);
+        volumeSlide.SetActive(false);
+        musicSlide.SetActive(false);
+        sfxSlide.SetActive(false);
     }
 
     IEnumerator TimerHome()
@@ -130,6 +136,9 @@ public class jatekmanager : MonoBehaviour
     {
         UpdateGameState(GameState.Settings);
         playGomb.SetActive(false);
+        volumeSlide.SetActive(true);
+        musicSlide.SetActive(true);
+        sfxSlide.SetActive(true);
     }
 
     private async void HandleSettings()
@@ -141,6 +150,9 @@ public class jatekmanager : MonoBehaviour
         scoreText.gameObject.SetActive(false);
         timerText.gameObject.SetActive(false);
         playGomb.SetActive(false);
+        volumeSlide.SetActive(false);
+        musicSlide.SetActive(false);
+        sfxSlide.SetActive(false);
     }
 
     public void ChangeToShop()
@@ -157,6 +169,9 @@ public class jatekmanager : MonoBehaviour
         goRightButton.SetActive(false);
         scoreText.gameObject.SetActive(false);
         timerText.gameObject.SetActive(false);
+        volumeSlide.SetActive(false);
+        musicSlide.SetActive(false);
+        sfxSlide.SetActive(false);
     }
 
     public void ChangeToGame()
@@ -166,7 +181,10 @@ public class jatekmanager : MonoBehaviour
         shopGomb.SetActive(false);
         playGomb.SetActive(false);
         UpdateGameState(GameState.Game);
-        
+        volumeSlide.SetActive(false);
+        musicSlide.SetActive(false);
+        sfxSlide.SetActive(false);
+
     }
 
     IEnumerator TimerGame()
