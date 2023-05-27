@@ -755,7 +755,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1201779188}
+        m_TargetAssemblyTypeName: jatekmanager, Assembly-CSharp
+        m_MethodName: SetMainVolume
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &284201298
 GameObject:
   m_ObjectHideFlags: 0
@@ -1774,7 +1786,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 601898925}
-  m_LocalRotation: {x: 0.04558132, y: -0.70516795, z: 0.04552065, w: 0.7061079}
+  m_LocalRotation: {x: 0.045581304, y: -0.70516795, z: 0.045520633, w: 0.7061079}
   m_LocalPosition: {x: 2.27, y: 4.16525, z: 3.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2757,7 +2769,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1201779188}
+        m_TargetAssemblyTypeName: jatekmanager, Assembly-CSharp
+        m_MethodName: SetSfxVolume
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &835649272
 GameObject:
   m_ObjectHideFlags: 0
@@ -3544,7 +3568,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 936985375}
-  m_LocalRotation: {x: 0.10193449, y: 0.69441885, z: -0.10037514, w: 0.7052068}
+  m_LocalRotation: {x: 0.1019345, y: 0.69441885, z: -0.100375146, w: 0.7052068}
   m_LocalPosition: {x: 4.61, y: 3.52, z: -1.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4350,6 +4374,7 @@ MonoBehaviour:
   goRightButton: {fileID: 2069815689}
   scoreText: {fileID: 702512603}
   timerText: {fileID: 1890329291}
+  audioMixer: {fileID: 0}
 --- !u!114 &1201779189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4988,7 +5013,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1513686735}
-  m_LocalRotation: {x: 0.22590087, y: 0.0030496197, z: -0.000707196, w: 0.9741453}
+  m_LocalRotation: {x: 0.22590086, y: 0.0030496058, z: -0.0007071928, w: 0.9741453}
   m_LocalPosition: {x: -0.28647116, y: 6.2664723, z: 2.6748314}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5273,7 +5298,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1201779188}
+        m_TargetAssemblyTypeName: jatekmanager, Assembly-CSharp
+        m_MethodName: SetMusicVolume
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1572233529
 GameObject:
   m_ObjectHideFlags: 0
@@ -5608,7 +5645,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1615993234}
-  m_LocalRotation: {x: 0.0010953929, y: 0.9979507, z: -0.061456818, w: 0.017787255}
+  m_LocalRotation: {x: 0.0010953955, y: 0.9979507, z: -0.061456837, w: 0.017787289}
   m_LocalPosition: {x: -0.435591, y: 4.16525, z: 13.428191}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6370,7 +6407,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895677325}
-  m_LocalRotation: {x: 0.0010953929, y: 0.9979507, z: -0.061456818, w: 0.017787255}
+  m_LocalRotation: {x: 0.0010953955, y: 0.9979507, z: -0.061456837, w: 0.017787289}
   m_LocalPosition: {x: -0.15911984, y: 2.9687777, z: -12.856641}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

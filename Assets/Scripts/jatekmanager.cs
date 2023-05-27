@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class jatekmanager : MonoBehaviour
 {
@@ -39,6 +40,10 @@ public class jatekmanager : MonoBehaviour
     private Timer timer;
     private CoinCounter cc;
 
+
+    public AudioMixer audioMixer;
+
+
     private void Awake()
     {
         Application.targetFrameRate = 60;
@@ -49,11 +54,25 @@ public class jatekmanager : MonoBehaviour
         score = FindObjectOfType<Score>();
         timer = FindObjectOfType<Timer>();
         cc = FindObjectOfType<CoinCounter>();
+
     }
 
     private void Start()
     {
         UpdateGameState(GameState.Home);
+    }
+
+    public void SetMainVolume(float mainVolume)
+    {
+        audioMixer.SetFloat("Master", mainVolume);
+    }
+    public void SetMusicVolume(float musicVolume)
+    {
+        audioMixer.SetFloat("Music", musicVolume);
+    }
+    public void SetSfxVolume(float sfxVolume)
+    {
+        audioMixer.SetFloat("Sfx", sfxVolume);
     }
 
     public void UpdateGameState(GameState newState)
