@@ -19,6 +19,8 @@ public class GroundController : MonoBehaviour
 
     //private CollectibleSpawner cs;
 
+    private Material newMaterial;
+
     private void Awake()
     {
         //cs = FindObjectOfType<CollectibleSpawner>();
@@ -39,6 +41,8 @@ public class GroundController : MonoBehaviour
         {
             Debug.Log("ground length: " + ground.Length);
         }
+
+        newMaterial = materials[0];
     }
 
     private void Move(GameObject move)
@@ -74,27 +78,19 @@ public class GroundController : MonoBehaviour
         //uj ground letrehozas 
         if (ground[ground.Length - 1].transform.position.z <= 120)
         {
-            if(groundCounter == portalSpawnNumber){
+            if (groundCounter == portalSpawnNumber)
+            {
                 CreateNewGround(true);
                 groundCounter = 0; //ne menjen a vegtelensegig a counter
-            }else{
+            }
+            else
+            {
                 CreateNewGround();
             }
 
             ground = GameObject.FindGameObjectsWithTag("Ground");
 
-            for (int i = 0; i < ground.Length; i++)
-            {
-                Transform[] lanes = new Transform[3];
-                lanes[0] = ground[i].transform.Find("Lane1");
-                lanes[1] = ground[i].transform.Find("Lane2");
-                lanes[2] = ground[i].transform.Find("Lane3");
-
-                foreach (var item in lanes)
-                {
-                    item.GetComponent<MeshRenderer>().material = materials[materialIndex];
-                }
-            }
+            ModuleColorChange();
         }
 
         //cs.SpawnCoin();
@@ -152,12 +148,28 @@ public class GroundController : MonoBehaviour
 
         if (isLeftSide && pos.x > 0) //x negativ hogy a bal oldalra keruljon
             pos.x = -pos.x;
-        
+
 
         Instantiate(inst, pos, rotation);
 
         sideObjectsSpawned = GameObject.FindGameObjectsWithTag("SideObject");
         OrderArrayByZ(sideObjectsSpawned);
+    }
+
+    public void ModuleColorChange()
+    {
+        for (int i = 0; i < ground.Length; i++)
+        {
+            Transform[] lanes = new Transform[3];
+            lanes[0] = ground[i].transform.Find("Lane1");
+            lanes[1] = ground[i].transform.Find("Lane2");
+            lanes[2] = ground[i].transform.Find("Lane3");
+
+            foreach (var item in lanes)
+            {
+                item.GetComponent<MeshRenderer>().material = newMaterial;
+            }
+        }
     }
 
     public void changeMaterialIndex()
@@ -182,6 +194,11 @@ public class GroundController : MonoBehaviour
         }
 
         teszteljtovabb = true;
+    }
+
+    public void ChangeMaterial(Material mat)
+    {
+        newMaterial = mat;
     }
 
     private bool CheckGroundToDestroy(GameObject toCheck)
@@ -219,12 +236,12 @@ public class GroundController : MonoBehaviour
 
         GameObject inst;
 
-        if(!portalModulSpawn)
+        if (!portalModulSpawn)
             inst = loadFrom[random];
         else
             inst = portalModul;
-            
-            
+
+
         //egy modullal elobb tolt be, annak az iranyanak megfeleloen, +80 a ket modul hossza
         Instantiate(inst, new Vector3(ground[ground.Length - 1].transform.position.x, ground[ground.Length - 1].transform.position.y, ground[ground.Length - 1].transform.position.z + 40), ground[ground.Length - 1].transform.rotation);
         groundCounter++;
