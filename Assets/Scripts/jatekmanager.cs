@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using Cinemachine;
 
 public class jatekmanager : MonoBehaviour
 {
@@ -41,6 +42,8 @@ public class jatekmanager : MonoBehaviour
     private Score score;
     private Timer timer;
     private CoinCounter cc;
+
+    [SerializeField] private CinemachineVirtualCamera homeCamera;
 
 
     public AudioMixer audioMixer;
@@ -197,6 +200,8 @@ public class jatekmanager : MonoBehaviour
 
     public void ChangeToGame()
     {
+        homeCamera.m_Lens.NearClipPlane = 0.3f;
+
         homeGomb.SetActive(false);
         settingsGomb.SetActive(false);
         shopGomb.SetActive(false);
@@ -205,7 +210,6 @@ public class jatekmanager : MonoBehaviour
         volumeSlide.SetActive(false);
         musicSlide.SetActive(false);
         sfxSlide.SetActive(false);
-
     }
 
     IEnumerator TimerGame()
@@ -222,8 +226,8 @@ public class jatekmanager : MonoBehaviour
 
         boby.transform.position = new Vector3(0, boby.transform.position.y, boby.transform.position.z);
 
-        GetComponent <GroundController> ().enabled = true;
-        GetComponent <PlayerController>().enabled = true;
+        GetComponent<GroundController> ().enabled = true;
+        GetComponent<PlayerController>().enabled = true;
 
         
         goLeftButton.SetActive(true);
@@ -232,9 +236,7 @@ public class jatekmanager : MonoBehaviour
         scoreText.gameObject.SetActive(true);
         timerText.gameObject.SetActive(true);;
 
-
         timer.playTime.Start();
-
     }
 
     public void ChangeToMeghaltal()

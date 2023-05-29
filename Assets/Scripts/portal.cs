@@ -9,6 +9,10 @@ public class portal : MonoBehaviour
     void Awake()
     {
         gc = FindObjectOfType<GroundController>();
+
+        
+
+        gameObject.GetComponent<MeshRenderer>().material = gc.materials[gc.materialIndex];
     }
 
     private void OnTriggerEnter(Collider other)
