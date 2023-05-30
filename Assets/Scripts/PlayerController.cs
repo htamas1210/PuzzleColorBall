@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 startTouchPosition; //erintes kezdo pozicio
     private Vector2 endTouchPosition; //erintes vegpozicio
 
+    [SerializeField] private Button buttonControl;
+    [SerializeField] private Button swipeControl;
+
     public ControlType activeControllType; //ezt kell atallitani hogy swipe-os vagy button-os legyen a mozgas
 
     public Button leftButton;
@@ -35,11 +38,28 @@ public class PlayerController : MonoBehaviour
         cc = FindObjectOfType<CameraController>(); //kamera vezerlo referencia
         isGrounded = FindObjectOfType<IsGrounded>();
         
-        //activeControllType = ControlType.Button;
+        if(activeControllType == ControlType.Swipe){
+            SwipeControl();
+        }
+        if(activeControllType == ControlType.Button){
+            ButtonControl();
+        }
     }
 
-    public void setControllType(ControlType controlltype){
+    private void setControllType(ControlType controlltype){
         activeControllType = controlltype;
+    }
+
+    public void ButtonControl(){
+        setControllType(ControlType.Button);
+        swipeControl.image.color = Color.white;
+        buttonControl.image.color = Color.red;
+    }
+
+    public void SwipeControl(){
+        setControllType(ControlType.Swipe);
+        swipeControl.image.color = Color.red;
+        buttonControl.image.color = Color.white;
     }
 
     private void Update(){

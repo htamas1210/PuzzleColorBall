@@ -20,7 +20,7 @@ public class portal : MonoBehaviour
     {
         if(other.gameObject.tag.Equals("Player")){
             gc.ChangeMaterial(gc.materials[random]);
-            gc.ModuleColorChange();
+            //gc.ModuleColorChange();
         }
     }
 

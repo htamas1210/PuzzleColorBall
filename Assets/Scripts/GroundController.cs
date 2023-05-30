@@ -42,7 +42,8 @@ public class GroundController : MonoBehaviour
             Debug.Log("ground length: " + ground.Length);
         }
 
-        newMaterial = materials[0];
+        newMaterial = materials[0]; //correct color
+        Debug.Log(newMaterial.color);
     }
 
     private void Move(GameObject move)

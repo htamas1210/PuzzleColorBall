@@ -43,6 +43,8 @@ public class jatekmanager : MonoBehaviour
     private Timer timer;
     private CoinCounter cc;
 
+    [SerializeField] private GameObject controlTypeSwitcher;
+
     [SerializeField] private CinemachineVirtualCamera homeCamera;
 
 
@@ -59,7 +61,6 @@ public class jatekmanager : MonoBehaviour
         score = FindObjectOfType<Score>();
         timer = FindObjectOfType<Timer>();
         cc = FindObjectOfType<CoinCounter>();
-
     }
 
     private void Start()
@@ -129,6 +130,8 @@ public class jatekmanager : MonoBehaviour
         goRightButton.SetActive(false);
         scoreText.gameObject.SetActive(false);
         timerText.gameObject.SetActive(false);
+
+        controlTypeSwitcher.SetActive(false);
     }
 
     private async void HandleHome()
@@ -147,6 +150,7 @@ public class jatekmanager : MonoBehaviour
         volumeSlide.SetActive(false);
         musicSlide.SetActive(false);
         sfxSlide.SetActive(false);
+        controlTypeSwitcher.SetActive(false);
     }
 
     IEnumerator TimerHome()
@@ -163,6 +167,7 @@ public class jatekmanager : MonoBehaviour
         volumeSlide.SetActive(true);
         musicSlide.SetActive(true);
         sfxSlide.SetActive(true);
+        controlTypeSwitcher.SetActive(true);
     }
 
     private async void HandleSettings()
@@ -177,12 +182,12 @@ public class jatekmanager : MonoBehaviour
         volumeSlide.SetActive(false);
         musicSlide.SetActive(false);
         sfxSlide.SetActive(false);
+        controlTypeSwitcher.SetActive(false);
     }
 
     public void ChangeToShop()
     {
-        UpdateGameState(GameState.Shop);
-        
+        UpdateGameState(GameState.Shop); 
     }
 
     private async void HandleShop()
@@ -196,6 +201,7 @@ public class jatekmanager : MonoBehaviour
         volumeSlide.SetActive(false);
         musicSlide.SetActive(false);
         sfxSlide.SetActive(false);
+        controlTypeSwitcher.SetActive(false);
     }
 
     public void ChangeToGame()
@@ -210,6 +216,7 @@ public class jatekmanager : MonoBehaviour
         volumeSlide.SetActive(false);
         musicSlide.SetActive(false);
         sfxSlide.SetActive(false);
+        controlTypeSwitcher.SetActive(false);
     }
 
     IEnumerator TimerGame()
@@ -234,7 +241,7 @@ public class jatekmanager : MonoBehaviour
         jumpButton.SetActive(true);
         goRightButton.SetActive(true);
         scoreText.gameObject.SetActive(true);
-        timerText.gameObject.SetActive(true);;
+        timerText.gameObject.SetActive(true);
 
         timer.playTime.Start();
     }
