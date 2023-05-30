@@ -47,7 +47,7 @@ public class DatabaseData : MonoBehaviour
             url = "nodejs.dszcbaross.edu.hu:" + PORT.ToString();
         }*/
 
-        //url = "nodejs.dszcbaross.edu.hu:" + PORT.ToString();
+        url = "nodejs.dszcbaross.edu.hu:" + PORT.ToString();
         Debug.Log("<color=pink>url: </color>" + url);
     }
 
