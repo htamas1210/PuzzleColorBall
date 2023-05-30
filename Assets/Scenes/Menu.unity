@@ -1111,13 +1111,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 305009302}
-  m_LocalRotation: {x: -0, y: -0.008726558, z: -0, w: 0.999962}
-  m_LocalPosition: {x: -0.7351638, y: -0.7135278, z: 26.276003}
-  m_LocalScale: {x: 32.05, y: 1, z: 75.27}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.91, z: 0}
+  m_LocalScale: {x: 32.050003, y: 1, z: 75.270004}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 897475396}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &340785676
 GameObject:
@@ -2534,7 +2534,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -291, y: 745}
+  m_AnchoredPosition: {x: 200, y: 900}
   m_SizeDelta: {x: 431.1149, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &702512603
@@ -2557,7 +2557,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score: '
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2669,7 +2669,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -253.39745, y: 934.9001}
+  m_AnchoredPosition: {x: -190, y: 900}
   m_SizeDelta: {x: 506.3254, y: 168.2041}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &788008818
@@ -2702,7 +2702,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 0.88714683, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3445,7 +3445,6 @@ Transform:
   m_Children:
   - {fileID: 43069913}
   - {fileID: 1755630382}
-  - {fileID: 305009306}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
@@ -4321,7 +4320,7 @@ MonoBehaviour:
   groundMoveSpeed: 10
   portalModul: {fileID: 6679310150688957571, guid: 922c9d3ed72c7904e92daec040e7e8ff, type: 3}
   groundCounter: 0
-  portalSpawnNumber: 5
+  portalSpawnNumber: 15
 --- !u!4 &1201779183
 Transform:
   m_ObjectHideFlags: 0
@@ -5309,7 +5308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1572233530
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5626,7 +5625,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1615993234}
-  m_LocalRotation: {x: -0.0003370659, y: 0.9991459, z: -0.040474083, w: -0.008320832}
+  m_LocalRotation: {x: -0.00033706616, y: 0.9991459, z: -0.04047412, w: -0.008320832}
   m_LocalPosition: {x: -0.26, y: 4, z: 13.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6346,7 +6345,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 341.10257, y: 935.00006}
+  m_AnchoredPosition: {x: 330, y: 900}
   m_SizeDelta: {x: 265.0578, y: 168.0133}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1890329291
@@ -6378,8 +6377,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6514,7 +6513,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895677325}
-  m_LocalRotation: {x: -0.0003370659, y: 0.9991459, z: -0.040474083, w: -0.008320832}
+  m_LocalRotation: {x: -0.00033706616, y: 0.9991459, z: -0.04047412, w: -0.008320832}
   m_LocalPosition: {x: 0.016471177, y: 2.8035278, z: -12.784832}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16402,7 +16401,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 122
@@ -16416,7 +16415,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 7398140401948337837}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 1.7212968
   m_Height: 6.3698125
   m_Direction: 1

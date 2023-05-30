@@ -10,11 +10,11 @@ public class Score : MonoBehaviour
 
     private void Awake() {
         score = 0;
-        scoreUI.text = "Score: " + score.ToString();
+        scoreUI.text = score.ToString();
     }
 
     public void addScore(ulong number){
         score += number;
-        scoreUI.text = "Score: " + score.ToString();
+        scoreUI.text = score.ToString();
     }
 }

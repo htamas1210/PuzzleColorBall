@@ -158,6 +158,8 @@ public class GroundController : MonoBehaviour
 
     public void ModuleColorChange()
     {
+        ground = GameObject.FindGameObjectsWithTag("Ground");
+        
         for (int i = 0; i < ground.Length; i++)
         {
             Transform[] lanes = new Transform[3];
